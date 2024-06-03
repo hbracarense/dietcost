@@ -1303,7 +1303,7 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
     nutrient_targets_wk <- convertWeeklyNutrientTargets(nutrient_targets, diet = diet, person = person, nutrient_constraints = nutrient_constraints)
     food_groups_wk <- convertWeeklyFoodGroups(food_groups_df, diet = diet, individual = person)
     nutrients_diff <- getDifference(df_target = nutrient_targets_wk, df_nutrients = nutrients_plan, merge_col = 'nutrient')
-    serves_diff <- getDifference(df_target = food_groups_wk, df_nutrients = serves, merge_col = ,c('food_group','food_group_id'))
+    serves_diff <- getDifference(df_target = food_groups_wk, df_nutrients = serves_plan, merge_col = ,c('food_group','food_group_id'))
     off_measures <- NULL
     off_food_groups <- NULL
     off_linked_foods_low <- NULL
