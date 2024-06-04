@@ -1,4 +1,4 @@
-os#Installs and imports libraries-------------------------------------------------
+#Installs and imports libraries-------------------------------------------------
 install.packages('devtools')
 library(devtools)
 install_github("zzz13hj/dietcost")
