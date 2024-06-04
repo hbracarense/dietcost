@@ -1,8 +1,8 @@
-#Installs and imports libraries-------------------------------------------------
+os#Installs and imports libraries-------------------------------------------------
 install.packages('devtools')
 library(devtools)
 install_github("zzz13hj/dietcost")
-library(dietcost)
+library(DIETCOST)
 
 #Global parameters--------------------------------------------------------------
 setwd('C:/Users/username/directory')
