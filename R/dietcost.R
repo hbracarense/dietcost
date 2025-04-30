@@ -1294,9 +1294,13 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
   if(round(iterations) != iterations || iterations <= 0){
     stop('Iterations must be a positive integer!')
   }
+  abs_path <- paste0(getwd(), '/')
+  new_dir <- paste0('results_', format(Sys.time(), '%Y%m%d%H%M%S'))
+  dir.create(paste0(abs_path, new_dir))
+  hash_list <- list()
   
   meal_plan <- createRandomMeal(foods_df = foods_df, targets_df = nutrient_targets_df, person = person, diet = diet, allowed_varieties = allowed_varieties, min_serve_size_difference = min_serve_size_difference, allow_takeaway = allow_takeaway, allow_alcohol = allow_alcohol, allow_discretionary = allow_discretionary, emission_cols = emission_cols, nutrient_cols = nutrient_cols)
-  meal_plans <- list()
+  print(paste('All meals formed will be saved as .csv files in directory', paste0(abs_path, new_dir)))
   for(i in 1:iterations){
     nutrients_plan <- getPerc(getNutrients(df = meal_plan, nutrient_cols = nutrient_cols),meal_plan)
     serves_plan <- getFoodGroupServes(df = meal_plan)
@@ -1351,17 +1355,15 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
     if(isTRUE(checkZeroDiff(nutrients_diff))){
       if(isTRUE(checkZeroDiff(serves_diff))){
         if((is.null(linked_low_1) && is.null(linked_high_1) && is.null(linked_low_2) && is.null(linked_high_2))||(!is.null(linked_low_1) && !is.null(linked_high_1) && is.null(linked_low_2) && is.null(linked_high_2) && linked_sum_1 >=0)||(!is.null(linked_low_1) && !is.null(linked_high_1) && !is.null(linked_low_2) && !is.null(linked_high_2) && linked_sum_1 >=0 && linked_sum_2 >=0)){
-          if(length(meal_plans) > 0){
-            for(i in 1:length(meal_plans)){
-              ifelse(all.equal(meal_plan,meal_plans[[i]]),
-                     {print('Already recorded!')
-                       meal_plan <- createRandomMeal(foods_df = foods_df, targets_df = nutrient_targets_df, person = person, diet = diet, allowed_varieties = allowed_varieties, min_serve_size_difference = min_serve_size_difference, allow_takeaway = allow_takeaway, allow_alcohol = allow_alcohol, allow_discretionary = allow_discretionary, emission_cols = emission_cols, nutrient_cols = nutrient_cols)
-                       break},
-                     NA)
-            }
-          }
-          meal_plans[[length(meal_plans)+1]] <-priceEmissionData(meal_plan)
           print('Hit!')
+          hash_diet <- hash(meal_plan)
+          if(!(hash_diet %in% hash_list)){
+            hash_list[[length(hash_list)+1]] <- hash_diet
+            print('Unique diet formed!')
+            write.csv(meal_plan, paste0(abs_path, new_dir, '/','meal_plan_',i,'.csv'), row.names=FALSE)
+          } else{
+            print('Diet already logged in!')
+          }
           food = sample_safe(meal_plan$food_id)
           serve_range <- sort(seq(meal_plan$min[meal_plan$food_id == food], meal_plan$max[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
         } else{
@@ -1484,8 +1486,9 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
       meal_plan$intake[meal_plan$food_id == food] <- new_intake
     }
   }
-  results <- list(meal_plans = meal_plans,
-                  last_meal = priceEmissionData(meal_plan),
+  results <- list(path_file = paste0(abs_path, new_dir),
+                  meals_created = length(hash_list),
+                  last_meal = meal_plan,
                   iterations_constraints = iterations_constraints,
                   iterations_fg = iterations_fg,
                   iterations_lk = iterations_lk,
@@ -1496,41 +1499,7 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
   return(results)
 }
 
-#' Aggregation of price, amount and serves results
-#' 
-#' Aggregates rsults of Monte Carlo Simulation.
-#' @param results List of results.
-#' @return List of aggregated results.
-#' @examples
-#' grouped_results <- groupedResults(results[['meal_plans']])
-#' 
-#' @export
-groupedResults <- function(results){
-  grouped_results <- list()
-  for(i in 1:length(results)){
-    df <- results[[i]] %>% group_by(food_group) %>% summarise(price_total = sum(price),
-                                                              price_min = min(price),
-                                                              price_max = max(price),
-                                                              price_median = median(price),
-                                                              price_mean = mean(price),
-                                                              price_sd = sd(price),
-                                                              amount_total = sum(intake),
-                                                              amount_min = min(intake),
-                                                              amount_max = max(intake),
-                                                              amount_median = median(intake),
-                                                              amount_mean = mean(intake),
-                                                              amount_sd = sd(intake),
-                                                              serves_total = sum(serves),
-                                                              serves_min = min(serves),
-                                                              serves_max = max(serves),
-                                                              serves_median = median(serves),
-                                                              serves_sd = sd(serves))
-    grouped_results[[length(grouped_results)+1]] <- df
-  }
-  return(grouped_results)
-}
-
-#' Exportantion of Monte Carlo results
+#' Exportation of Monte Carlo results
 #' 
 #' Exports, in .xlsx format, the results of Monte Carlo simulation.
 #' @param results List of results
@@ -1542,100 +1511,53 @@ groupedResults <- function(results){
 #' printResults(results, person, diet, allowed_varieties, iterations)#' 
 #' @export
 printResults <- function(results, person, diet, allowed_varieties,iterations){
-  general <- data.frame('Variable' = c('Individual', 'Diet', 'Varieties','Iterations'),
-                        'Value' = c(person, diet, paste0(allowed_varieties, collapse = ","), iterations))
+  general <- data.frame('Variable' = c('Individual', 'Diet', 'Varieties','Iterations', 'Hit meals', 'Path to hit meals'),
+                        'Value' = c(person, diet, paste0(allowed_varieties, collapse = ","), iterations, results[['meals_created']], results[['path_file']]))
   
-  if(length(results[['meal_plans']])== 0){
-    write.xlsx(general,
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'General info',
-               row.names= FALSE)
-    write.xlsx(results[['nutrient_targets_wk']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Weekly nutrients',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['food_groups_wk']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Weekly serves',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['iterations_constraints']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Iterations (nutrients)',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['iterations_fg']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Iterations (food groups)',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['iterations_lk']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Iterations (linked foods)',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(as.data.frame(results[['last_meal']]),
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Last meal created',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['nutrients_diff']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Difference (nutrients)',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['serves_diff']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Difference (serves)',
-               append = TRUE,
-               row.names = FALSE)
-  } else{
-    grouped_results <- groupedResults(results[['meal_plans']])
-    write.xlsx(general,
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'General info',
-               row.names= FALSE)
-    write.xlsx(results[['nutrient_targets_wk']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Weekly nutrients',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['food_groups_wk']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Weekly serves',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['iterations_constraints']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Iterations (nutrients)',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['iterations_fg']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Iterations (food groups)',
-               append = TRUE,
-               row.names = FALSE)
-    write.xlsx(results[['iterations_lk']],
-               paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-               sheetName = 'Iterations (linked foods)',
-               append = TRUE,
-               row.names = FALSE)
-    for(i in 1:length(results[['meal_plans']])){
-      write.xlsx(as.data.frame(results[['meal_plans']][i]),
-                 paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-                 sheetName = paste0(('Hit meal #'),i),
-                 append = TRUE,
-                 row.names = FALSE)
-    }
-    for(i in 1:length(grouped_results)){
-      write.xlsx(as.data.frame(grouped_results[[i]]),
-                 paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
-                 sheetName = paste0(('Grouped info - meal #'),i),
-                 append = TRUE,
-                 row.names = FALSE)
-    }
-  }
+  write.xlsx(general,
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'General info',
+             row.names= FALSE)
+  write.xlsx(results[['nutrient_targets_wk']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Weekly nutrients',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(results[['food_groups_wk']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Weekly serves',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(results[['iterations_constraints']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Iterations (nutrients)',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(results[['iterations_fg']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Iterations (food groups)',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(results[['iterations_lk']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Iterations (linked foods)',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(as.data.frame(results[['last_meal']]),
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Last meal created',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(results[['nutrients_diff']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Difference (nutrients)',
+             append = TRUE,
+             row.names = FALSE)
+  write.xlsx(results[['serves_diff']],
+             paste(paste('results',person,diet,format(Sys.time(), "%Y-%m-%d_%H-%M"),sep ='_'),'xlsx',sep = '.'),
+             sheetName = 'Difference (serves)',
+             append = TRUE,
+             row.names = FALSE)
 }
 
 #' Single-function Monte Carlo simulation and results export.
@@ -1692,4 +1614,157 @@ monteCarloSimulation <- function(iterations, foods_df, nutrient_targets_df, food
   }
   results <- monteCarlo(iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary, allow_alcohol, allow_takeaway, emission_cols, nutrient_cols, nutrient_constraints, linked_low_1, linked_high_1, linked_low_2, linked_high_2)
   printResults(results, person, diet, allowed_varieties, iterations)
+}
+
+#'Calculates results for a Monte Carlo Simulation
+#'
+#'Calculates a confidence interval for several parameters obtained through a Monte Carlo Simulation. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.
+#'@param path_file A string containing the path to the folder containing the .csv files created in the monteCarlo function.
+#'@param confidence_interval A float. Must be either 0.01, 0.05 or 0.1.
+#'@examples
+#'calculateResults('/my/folder', 0.05)
+#'@export
+calculateResults <- function(path_file, confidence_interval){
+  if(!(confidence_interval %in% c(0.01, 0.05, 0.1))){
+    stop('Confidence interval must be either 0.01, 0.05 or 0.1. Please try again!')
+  }
+
+  files <- list.files(path = path_file, pattern = "meal_plan_", all.files = FALSE,
+                      full.names = FALSE, recursive = FALSE,
+                      ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
+  
+  if(lenght(files) == 0){
+    stop("There aren't any files in said directory. Please try again.")
+  } else{
+    df <- data.frame(item = c('energy_kj_g', 'fat_g', 'sat_fat_g', 'CHO_g', 'sugars_g', 'protein_g', 'fat_perc', 'sat_fat_perc', 'CHO_perc', 'sugars_perc', 'fibre_g', 'protein_perc', 'red_meat_g', 'sodium_mg', 'fruit_serves', 'vegetable_serves', 'grains_serves', 'dairy_serves', 'protein_serves', 'fats_serves', 'sauces_serves', 'beverages_serves', 'ssb_serves', 'starchy_serves', 'red_meat_serves', 'alcohol_serves', 'discretionary_serves', 'fruit_perc', 'vegetable_perc', 'grains_perc', 'dairy_perc', 'protein_foods_perc', 'fats_perc', 'sauces_perc', 'beverages_perc', 'ssb_perc', 'starchy_perc', 'red_meat_perc', 'alcohol_perc', 'discretionary_perc', 'price', 'CF_gCO2eq', 'WF_l', 'EF_g_m2'))
+    confidence_interval <- 1 - (confidence_interval/2)
+    for(file in files){
+      meal_df <- read.csv(file.path(path_file, file))
+      col <- as.character(strsplit(file,'.csv')[1])
+      df[,col] <- double(52)
+      
+      for(i in 1:nrow(df)){
+        switch(df$item[i],
+               'energy_kj_g' = {df[i, col] <- sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)},
+               'fat_g' = {df[i, col] <- sum((meal_df$fat_g/100)*meal_df$intake, na.rm = TRUE)},
+               'sat_fat_g' = {df[i, col] <- sum((meal_df$sat_fat_g/100)*meal_df$intake, na.rm = TRUE)},
+               'CHO_g' = {df[i, col] <- sum((meal_df$CHO_g/100)*meal_df$intake, na.rm = TRUE)},
+               'sugars_g' = {df[i, col] <- sum((meal_df$sugars_g/100)*meal_df$intake, na.rm = TRUE)},
+               'protein_g' = {df[i, col] <- sum((meal_df$protein_g/100)*meal_df$intake, na.rm = TRUE)},
+               'fat_perc' = {df[i, col] <- (sum((meal_df$fat_g/100)*meal_df$intake, na.rm = TRUE)*f1)/sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)*100},
+               'sat_fat_perc' = {df[i, col] <- (sum((meal_df$sat_fat_g/100)*meal_df$intake, na.rm = TRUE)*f1)/sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)*100},
+               'CHO_perc' = {df[i, col] <- (sum((meal_df$CHO_g/100)*meal_df$intake, na.rm = TRUE)*f2)/sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)*100},
+               'sugars_perc' = {df[i, col] <- (sum((meal_df$sugars_g/100)*meal_df$intake, na.rm = TRUE)*f2)/sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)*100},
+               'fibre_g' = {df[i, col] <- sum((meal_df$fibre_g/100)*meal_df$intake, na.rm = TRUE)},
+               'protein_perc' = {df[i, col] <- (sum((meal_df$protein_g/100)*meal_df$intake, na.rm = TRUE)*f2)/sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)*100},
+               'red_meat_g' = {df[i, col] <- sum(meal_df$intake[meal_df$food_group == 'red meat'], na.rm = TRUE)},
+               'sodium_mg' = {df[i, col] <- sum((meal_df$sodium_mg/100)*meal_df$intake, na.rm = TRUE)},
+               'fruit_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Fruit']), na.rm = TRUE)},
+               'vegetable_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Vegetables']), na.rm = TRUE)},
+               'grains_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Grains']), na.rm = TRUE)},
+               'dairy_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Dairy/alternatives']), na.rm = TRUE)},
+               'protein_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Protein foods: Meat, poultry, seafood, eggs, legumes, nuts, seeds']), na.rm = TRUE)},
+               'fats_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Fats & oils']), na.rm = TRUE)},
+               'sauces_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Sauces, dressings, spreads, sugars']), na.rm = TRUE)},
+               'beverages_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Beverages']), na.rm = TRUE)},
+               'ssb_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'ssb']), na.rm = TRUE)},
+               'starchy_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Starchy vegetables']), na.rm = TRUE)},
+               'red_meat_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'red meat']), na.rm = TRUE)},
+               'alcohol_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Alcohol']), na.rm = TRUE)},
+               'discretionary_serves' = {df[i, col] <- sum((meal_df$serves[meal_df$food_group == 'Discretionary foods']), na.rm = TRUE)},
+               'fruit_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Fruit']/100)*(meal_df$intake[meal_df$food_group == 'Fruit']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'vegetable_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Vegetables']/100)*(meal_df$intake[meal_df$food_group == 'Vegetables']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'grains_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Grains']/100)*(meal_df$intake[meal_df$food_group == 'Grains']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'dairy_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Dairy/alternatives']/100)*(meal_df$intake[meal_df$food_group == 'Dairy/alternatives']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'protein_foods_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Protein foods: Meat, poultry, seafood, eggs, legumes, nuts, seeds']/100)*(meal_df$intake[meal_df$food_group == 'Protein foods: Meat, poultry, seafood, eggs, legumes, nuts, seeds']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'fats_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Fats & oils']/100)*(meal_df$intake[meal_df$food_group == 'Fats & oils']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'sauces_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Sauces, dressings, spreads, sugars']/100)*(meal_df$intake[meal_df$food_group == 'Sauces, dressings, spreads, sugars']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'beverages_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Beverages']/100)*(meal_df$intake[meal_df$food_group == 'Beverages']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'ssb_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'ssb']/100)*(meal_df$intake[meal_df$food_group == 'ssb']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'starchy_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Starchy vegetables']/100)*(meal_df$intake[meal_df$food_group == 'Starchy vegetables']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'red_meat_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'red meat']/100)*(meal_df$intake[meal_df$food_group == 'red meat']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'alcohol_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Alcohol']/100)*(meal_df$intake[meal_df$food_group == 'Alcohol']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'discretionary_perc' = {df[i, col] <- (sum((meal_df$energy_kj_g[meal_df$food_group == 'Discretionary foods']/100)*(meal_df$intake[meal_df$food_group == 'Discretionary foods']), na.rm = TRUE)/(sum((meal_df$energy_kj_g/100)*meal_df$intake, na.rm = TRUE)))*100},
+               'price' = {df[i, col] <- sum((meal_df$price/100)*meal_df$intake, na.rm = TRUE)},
+               'CF_gCO2eq' = {df[i, col] <- sum((meal_df$CF_gCO2eq/1000)*meal_df$intake, na.rm = TRUE)},
+               'WF_l' = {df[i, col] <- sum((meal_df$WF_l/1000)*meal_df$intake, na.rm = TRUE)},
+               'EF_g_m2' = {df[i, col] <- sum((meal_df$EF_g_m2/1000)*meal_df$intake, na.rm = TRUE)}
+        )
+        
+      }
+    }
+    df_results <- data.frame(item = df$item)
+    df_results[,c('value', 'margin')] <- double(nrow(df))
+    
+    for(i in 1:nrow(df)){
+      n <- ncol(df) - 1
+      df_results$value[i] <- as.numeric(rowMeans(df[i,2:ncol(df)]))
+      s <- sd(df[i,2:ncol(df)])
+      df_results$margin[i] <- ifelse(n <= 30,
+                                     qt(confidence_interval,df=n-1)*s/sqrt(n),
+                                     qnorm(confidence_interval)*s/sqrt(n))
+      
+    }
+    
+    df_results[nrow(df_results)+1,] <-c('n',n,NA)
+    write_xlsx(df_results, file.path(getwd(), paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')))
+  }
+}
+
+
+#'Calculates grouped results for a Monte Carlo Simulation
+#'
+#'Calculates a confidence interval for price and footprints obtained through a Monte Carlo Simulation, grouped by food groups. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.
+#'@param path_file A string containing the path to the folder containing the .csv files created in the monteCarlo function.
+#'@param confidence_interval A float. Must be either 0.01, 0.05 or 0.1.
+#'@examples
+#'calculateGroupedResults('/my/folder', 0.05)
+#'@export
+calculateGroupedResults <- function(path_file, confidence_interval){
+  if(!(confidence_interval %in% c(0.01, 0.05, 0.1))){
+    stop('Confidence interval must be either 0.01, 0.05 or 0.1. Please try again!')
+  }
+  
+  files <- list.files(path = path_file, pattern = "meal_plan_", all.files = FALSE,
+                      full.names = FALSE, recursive = FALSE,
+                      ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
+  
+  if(lenght(files) == 0){
+    stop("There aren't any files in said directory. Please try again.")
+  } else{
+    df <- data.frame(item = c('price', 'CF_gCO2eq', 'WF_l', 'EF_g_m2'))
+    confidence_interval <- 1 - (confidence_interval/2)
+    for(file in files){
+      meal_df <- read.csv(file.path(path_file, file))
+      col <- as.character(strsplit(file,'.csv')[1])
+      df[,col] <- double(4)
+      meal_df$price <- (meal_df$price/100)*meal_df$intake
+      meal_df$CF_gCO2eq <- (meal_df$CF_gCO2eq/1000)*meal_df$intake
+      meal_df$WF_l <- (meal_df$WF_l/1000)*meal_df$intake
+      meal_df$EF_g_m2 <- (meal_df$EF_g_m2/1000)*meal_df$intake
+      for(i in nrow(df)){
+        switch(df$item[i],
+               'price' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(price, na.rm = TRUE)) %>% select(!!col)},
+               'CF_gCO2eq' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(CF_gCO2eq, na.rm = TRUE)) %>% select(!!col)},
+               'WF_l' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(WF_l, na.rm = TRUE)) %>% select(!!col)},
+               'EF_g_m2' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(EF_g_m2, na.rm = TRUE)) %>% select(!!col)}
+        )
+      }
+    }
+    df_results <- data.frame(item = df$item)
+    df_results[,c('value', 'margin')] <- double(nrow(df))
+    
+    for(i in 1:nrow(df)){
+      n <- ncol(df) - 1
+      df_results$value[i] <- as.numeric(rowMeans(df[i,2:ncol(df)]))
+      s <- sd(df[i,2:ncol(df)])
+      df_results$margin[i] <- ifelse(n <= 30,
+                                     qt(confidence_interval,df=n-1)*s/sqrt(n),
+                                     qnorm(confidence_interval)*s/sqrt(n))
+      
+    }
+    df_results[nrow(df_results)+1,] <-c('n',n,NA)
+    write_xlsx(df_results, file.path(getwd(), paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')))
+    }
+
 }

@@ -1,8 +1,8 @@
 #Installs and imports libraries-------------------------------------------------
 install.packages('devtools')
 library(devtools)
-install_github("zzz13hj/dietcost")
-library(dietcost)
+install_github("hbracarense/dietcost")
+library(DIETCOST)
 
 #Global parameters--------------------------------------------------------------
 setwd('C:/Users/username/directory')
@@ -22,4 +22,8 @@ foods_df <- addPriceData(filepath = filepath, foods_df)
 food_groups_df <- createFoodGroupData(foods_df)
 food_groups_df <- addFoodGroupsConstraintData(filepath = filepath, food_groups_df, diets = c('C','PF', 'H'))
 nutrient_targets <- createNutrientTargets(filepath = filepath, allow_takeaway = FALSE, alcohol_perc_max = 20, discretionary_perc_max = 100)
-results <- monteCarlo(100000, foods_df, nutrient_targets, food_groups_df, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, linked_low_1 = linked_bread_low, linked_high_1 = linked_bread_high, linked_low_2 = linked_milk_low, linked_high_2 = linked_milk_high)
+results <- monteCarlo(10, foods_df, nutrient_targets, food_groups_df, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, linked_low_1 = linked_bread_low, linked_high_1 = linked_bread_high, linked_low_2 = linked_milk_low, linked_high_2 = linked_milk_high)
+
+#Exports results----------------------------------------------------------------
+calculateResults('folder/results', 0.05)
+calculateGroupedResults('folder/results', 0.05)

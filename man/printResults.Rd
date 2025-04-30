@@ -2,7 +2,7 @@
 % Please edit documentation in R/dietcost.R
 \name{printResults}
 \alias{printResults}
-\title{Exportantion of Monte Carlo results}
+\title{Exportation of Monte Carlo results}
 \usage{
 printResults(results, person, diet, allowed_varieties, iterations)
 }
