@@ -1,13 +1,8 @@
 #Installs and imports libraries-------------------------------------------------
 install.packages('devtools')
 library(devtools)
-<<<<<<< HEAD
 install_github("hbracarense/dietcost")
-library(dietcost)
-=======
-install_github("zzz13hj/dietcost")
 library(DIETCOST)
->>>>>>> 8ba8428e0ad267f289586011baea60b7fe410fe0
 
 #Global parameters--------------------------------------------------------------
 setwd('C:/Users/username/directory')
@@ -22,12 +17,10 @@ linked_milk_high <- c("79020", "79001", "79036", "79003", "79039")
 foods_df <- foodData(filepath = filepath, redmeat_ids = redmeat_ids, diets = c('C', 'PF', 'H'), max_scale = 2)
 food_groups_df <- foodGroupData(filepath = filepath, df_foods = foods_df, diets = c('C', 'PF', 'H'))
 nutrient_targets <- createNutrientTargets(filepath = filepath, allow_takeaway = FALSE, alcohol_perc_max = 20, discretionary_perc_max = 100)
-<<<<<<< HEAD
-monteCarloSimulation(10, foods_df, nutrient_targets, food_groups_df, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, linked_low_1 = linked_bread_low, linked_high_1 = linked_bread_high, linked_low_2 = linked_milk_low, linked_high_2 = linked_milk_high)
+
+#Runs a Monte Carlo Simulation--------------------------------------------------
+monteCarloSimulation(100000, foods_df, nutrient_targets, food_groups_df, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, linked_low_1 = linked_bread_low, linked_high_1 = linked_bread_high, linked_low_2 = linked_milk_low, linked_high_2 = linked_milk_high)
 
 #Exports results----------------------------------------------------------------
 calculateResults('folder/results', 0.05)
 calculateGroupedResults('folder/results', 0.05)
-=======
-monteCarloSimulation(100000, foods_df, nutrient_targets, food_groups_df, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, linked_low_1 = linked_bread_low, linked_high_1 = linked_bread_high, linked_low_2 = linked_milk_low, linked_high_2 = linked_milk_high)
->>>>>>> 8ba8428e0ad267f289586011baea60b7fe410fe0
