@@ -1,0 +1,58 @@
+#' Nutrients dataset example
+#' 
+#' A set of data containing nutrient weekly targets based on a Brazilian typical diet.
+#' 
+#' @format ##`nutrient_targets`
+#' A dataframe with 12 rows and 48 columns:
+#' \describe{
+#'  \item{individual}{Person whose nutrient targets will be provided: man, woman, boy or girl}
+#'  \item{diet}{Diet whose nutrient targets will be provided: current (C), EAT-Lancet (PF) or healthy (H)}
+#'  \item{energy_kj_min}{Minimal weekly intake of energy, in kJ/g}
+#'  \item{energy_kj_max}{Maximal weekly intake of energy, in kJ/g}
+#'  \item{fat_grams_min}{Minimal weekly intake of fat in grams}
+#'  \item{fat_grams_max}{Maximal weekly intake of fat in grams}
+#'  \item{sat_fat_grams_min}{Minimal weekly intake of saturated fat in grams}
+#'  \item{sat_fat_grams_max}{Maximal weekly intake of saturated fat in grams}
+#'  \item{CHO_gram_mins}{Minimal weekly intake of carbohydrates in grams}
+#'  \item{CHO_gram_max}{Maximal weekly intake of carbohydrates in grams}
+#'  \item{sugars_grams_min}{Minimal weekly intake of sugars in grams}
+#'  \item{sugars_grams_max}{Maximal weekly intake of sugars in grams}
+#'  \item{fibre_grams_min}{Minimal weekly intake of fibre in grams}
+#'  \item{fibre_grams_max}{Maximal weekly intake of fibre in grams}
+#'  \item{protein_grams_min}{Minimal weekly intake of protein in grams}
+#'  \item{protein_grams_max}{Maximal weekly intake of protein in grams}
+#'  \item{sodium_mgrams_min}{Minimal weekly intake of sodium in grams}
+#'  \item{sodium_mgrams_max}{Maximal weekly intake of sodium in grams}
+#'  \item{protein_perc_min}{Minimal weekly intake of protein in percentage}
+#'  \item{protein_perc_max}{Maximal weekly intake of protein in percentage}
+#'  \item{sat_fat_perc_min}{Minimal weekly intake of saturated fat in percentage}
+#'  \item{sat_fat_perc_max}{Maximal weekly intake of saturated fat in percentage}
+#'  \item{fat_perc_min}{Minimal weekly intake of fat in percentage}
+#'  \item{fat_perc_max}{Maximal weekly intake of fat in percentage}
+#'  \item{CHO_perc_mins}{Minimal weekly intake of carbohydrates in percentage}
+#'  \item{CHO_perc_max}{Maximal weekly intake of carbohydrates in percentage}
+#'  \item{redmeat_grams_min}{Minimal weekly intake of red meat in grams}
+#'  \item{redmeat_grams_max}{Maximal weekly intake of red meat in grams}
+#'  \item{fruit_serves_min}{Minimal weekly intake of Fruit in serves}
+#'  \item{fruit_serves_max}{Maximal weekly intake of Fruit in serves}
+#'  \item{starchy_veg_serves_min}{Minimal weekly intake of Starchy vegetables in serves}
+#'  \item{starchy_veg_serves_max}{Maximal weekly intake of Starchy vegetables in serves}
+#'  \item{veg_serves_min}{Minimal weekly intake of Vegetables in serves}
+#'  \item{veg_serves_max}{Maximal weekly intake of Vegetables in serves}
+#'  \item{dairy_serves_min}{Minimal weekly intake of Dairy in serves}
+#'  \item{dairy_serves_max}{Maximal weekly intake of Dairy in serves}
+#'  \item{grain_serves_min}{Minimal weekly intake of Grains in serves}
+#'  \item{grain_serves_max}{Maximal weekly intake of Grains in serves}
+#'  \item{protein_serves_min}{Minimal weekly intake of Protein in serves}
+#'  \item{protein_serves_max}{Maximal weekly intake of Protein in serves}
+#'  \item{sugars_perc_mins}{Minimal weekly intake of sugars in percentage}
+#'  \item{sugars_perc_max}{Maximal weekly intake of sugars in percentage}
+#'  \item{alcohol_perc_mins}{Minimal weekly intake of Alcohol in percentage}
+#'  \item{alcohol_perc_max}{Maximal weekly intake of Alcohol in percentage}
+#'  \item{discretionary_perc_mins}{Minimal weekly intake of Discretionary foods in percentage}
+#'  \item{discretionary_perc_max}{Maximal weekly intake of Discretionary foods in percentage}
+#'  \item{takeaway_perc_mins}{Minimal weekly intake of Takeaway in percentage}
+#'  \item{takeaway_perc_max}{Maximal weekly intake of Takeaway foods in percentage}             
+#' }
+#' 
+#' @source Elaborated by authors.

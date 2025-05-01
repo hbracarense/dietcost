@@ -1,10 +1,20 @@
 Package: DIETCOST
 Type: Package
-Title: DIETCOST software for R
-Version: 0.0.1.0
+Title: Calculate the cost and environmental impact of a ideal diet
+Version: 1.0.0.0
 RoxygenNote: 7.3.1
 Encoding: UTF-8
 Imports: readxl, rlang, dplyr, tidyselect, stats, xlsx, magrittr
-
-
-
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Description: A DIETCOST software version for R. This package provides the tools to manipulate food and nutritional data, allowing the user to easily perform a Monte Carlo simulation to create ideal diets, saving them in .csv. Afterwards, you can also perform basic statistical analysis of the results.
+Authors@R: c(
+    person("Henrique", "Bracarense", , "hbracarense@hotmail.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0009-0001-5964-9969")),
+    person("Thais", "Marquezine", role = "aut",
+           comment = c(ORCID = "0000-0002-9415-5817")),
+    person("Rafael", "Claro", role = "aut",
+           comment = c(ORCID = "0000-0001-9690-575X"))
+  )
+License: MIT + file LICENSE
