@@ -2,8 +2,6 @@
 #'
 #' Checks if logged individuals are one or all of the following: man, woman, boy or girl.
 #' @param df Variable.
-#' @examples 
-#' permitted_individuals(data.frame(individual = person))
 #' @export
 permitted_individuals <- function(df){
   possible_individuals <- c('man', 'woman', 'boy','girl')

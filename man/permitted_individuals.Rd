@@ -12,6 +12,3 @@ permitted_individuals(df)
 \description{
 Checks if logged individuals are one or all of the following: man, woman, boy or girl.
 }
-\examples{
-permitted_individuals(data.frame(individual = person))
-}

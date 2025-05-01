@@ -15,6 +15,3 @@ Food group dataframe.
 \description{
 Creates and populates a food group data dataframe
 }
-\examples{
-food_groups_df <- createFoodGroupData(foods_df);
-}

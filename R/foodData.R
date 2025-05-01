@@ -8,9 +8,6 @@
 #' @param emission_cols Optional parameter. Emission column names if standard dataset isn't used.
 #' @param override_min If is not null, overrides all minimum values
 #' @return Foods dataframe.
-#' @examples 
-#' foods_df <- foodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', redmeat_ids = c(71003, 71008, 71041, 81005, 81021, 81022, 81026, 81027, 81029), diets = c('C', 'PF', 'H'), max_scale = 2);
-#' foods_df <- foodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', redmeat_ids = c(71003, 71008, 71041, 81005, 81021, 81022, 81026, 81027, 81029), diets = c('C', 'PF', 'H'), max_scale = 2, override_min = 50);
 #' @export
 foodData <- function(filepath = filepath, redmeat_ids, diets, max_scale, emission_cols = NULL, override_min = NULL){
   df <- createFoodData(filepath = filepath, redmeat_ids = redmeat_ids)

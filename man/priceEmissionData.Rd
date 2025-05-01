@@ -17,7 +17,3 @@ Random meal plan with price and emissions calculated.
 \description{
 Applies price and emission data calculation to random meal plan generated.
 }
-\examples{
-df <-priceEmissionData(meal_plan);
-df <-priceEmissionData(meal_plan, c('CO2','WF_l'));
-}

@@ -19,9 +19,3 @@ Differences dataframe.
 \description{
 Checks if lower bound linked foods serves are lower or equal to higher bound linked foods serves.
 }
-\examples{
-linked_milk_low <- c("69029", "79012", "70038", "69043");
-linked_milk_high <- c("79020", "79001", "79036", "79003", "79039");
-link_sum_1 <- checkLinkedFoods(random_meal, linked_milk_low, linked_milk_high);
-
-}

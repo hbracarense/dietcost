@@ -19,7 +19,3 @@ Differences dataframe.
 \description{
 Applies difference calculation to entire dataset.
 }
-\examples{
-nutrients_diff <- getDifference(df_target = nutrient_targets_wk, df_nutrients = nutrients_plan, merge_col = 'nutrient');
-
-}

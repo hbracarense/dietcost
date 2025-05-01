@@ -3,8 +3,6 @@
 #' Treats above said food name groups to the format used in the package.
 #' @param group Food group column in dataframe.
 #' @return Treated dataframe.
-#' @examples 
-#'df$food_group <- sapply(df$food_group, sauces_protein_discretionary_change)
 #' @export
 sauces_protein_discretionary_change <- function(group){
   ifelse(group == 'Sauces, dressings, spreads, sugars',

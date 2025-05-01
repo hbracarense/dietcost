@@ -15,6 +15,3 @@ Treated dataframe.
 \description{
 Treats above said food name groups to the format used in the package.
 }
-\examples{
-df$food_group <- sapply(df$food_group, sauces_protein_discretionary_change)
-}

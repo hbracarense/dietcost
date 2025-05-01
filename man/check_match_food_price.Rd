@@ -13,5 +13,5 @@ check_match_food_price(df)
 Checks if all foods have a price.
 }
 \examples{
-check_match_food_price(df1)
+DIETCOST::check_match_food_price(DIETCOST::foods)
 }

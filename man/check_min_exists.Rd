@@ -19,6 +19,3 @@ Dataframe.
 \description{
 Looks for a minimum value and sets zero if missing,
 }
-\examples{
- df <- check_min_exists(df, allow_alcohol, alcohol_perc_min)
-}

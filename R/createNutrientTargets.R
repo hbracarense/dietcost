@@ -9,8 +9,6 @@
 #' @param discretionary_perc_max Optional parameter. Defines maximum energy intake derived from discretionary foods.
 #' @param takeaway_perc_max Optional parameter. Defines maximum energy intake derived from takeaway.
 #' @return Nutrient targets dataframe.
-#' @examples 
-#' nutrient_targets <- createNutrientTargets(filepath = 'C:/Users/username/Downloads/dataset.xlsx', allow_takeaway = FALSE, alcohol_perc_max = 20, discretionary_perc_max = 100);
 #' @export
 createNutrientTargets <- function(filepath, allow_alcohol = TRUE, allow_discretionary = TRUE, allow_takeaway = TRUE, alcohol_perc_max = NULL, discretionary_perc_max = NULL, takeaway_perc_max = NULL){
   alcohol <- checks_optional_food_groups(allow_alcohol, alcohol_perc_max)

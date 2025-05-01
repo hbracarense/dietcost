@@ -5,9 +5,6 @@
 #' @param df Foods dataframe.
 #' @param emission_cols Optional parameter. Emission column names if standard dataset isn't used.
 #' @return Food dataframe with emission data.
-#' @examples 
-#' foods_df <- addEmissionData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df);
-#' foods_df <- addEmissionData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df, emission_cols = c('CO2','WF_l'));
 #' @export
 addEmissionData <- function(filepath, df, emission_cols = NULL){
   standard_name_check(df, 'food_id')

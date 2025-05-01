@@ -7,9 +7,6 @@
 #' @param max_scale Maximum scale.
 #' @param override_min If is not null, overrides all minimum values.
 #' @return Foods dataframe with constraints columns.
-#' @examples 
-#' foods_df <- addConstraintData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df, diet = c('C', 'PF', 'H'), max_scale = 2);
-#' foods_df <- addConstraintData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df, diet = c('C', 'PF', 'H'), max_scale = 2, override_min = 50);
 #' @export
 addConstraintData <- function(filepath, df, diets, max_scale, override_min = NULL){
   standard_name_check(df, 'food_id', 'food_name', 'food_group')

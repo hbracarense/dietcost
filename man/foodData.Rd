@@ -32,7 +32,3 @@ Foods dataframe.
 \description{
 Creates foods dataframe, with emission, nutrients, constraints and price data, in a single function.
 }
-\examples{
-foods_df <- foodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', redmeat_ids = c(71003, 71008, 71041, 81005, 81021, 81022, 81026, 81027, 81029), diets = c('C', 'PF', 'H'), max_scale = 2);
-foods_df <- foodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', redmeat_ids = c(71003, 71008, 71041, 81005, 81021, 81022, 81026, 81027, 81029), diets = c('C', 'PF', 'H'), max_scale = 2, override_min = 50);
-}

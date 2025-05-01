@@ -5,8 +5,6 @@
 #' @param df_nutrients Nutrients/serves from random meal plan dataframe.
 #' @param merge_col Column to join both dataframes.
 #' @return Differences dataframe.
-#' @examples
-#' nutrients_diff <- getDifference(df_target = nutrient_targets_wk, df_nutrients = nutrients_plan, merge_col = 'nutrient');
 #' 
 #' @export
 getDifference <- function(df_target, df_nutrients, merge_col){

@@ -3,8 +3,6 @@
 #'Calculates a confidence interval for price and footprints obtained through a Monte Carlo Simulation, grouped by food groups. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.
 #'@param path_file A string containing the path to the folder containing the .csv files created in the monteCarlo function.
 #'@param confidence_interval A float. Must be either 0.01, 0.05 or 0.1.
-#'@examples
-#'calculateGroupedResults('/my/folder', 0.05)
 #'@export
 calculateGroupedResults <- function(path_file, confidence_interval){
   if(!(confidence_interval %in% c(0.01, 0.05, 0.1))){

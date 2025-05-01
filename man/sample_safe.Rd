@@ -16,6 +16,5 @@ Random sample.
 Safely extracts a random unitary sample from a vector.
 }
 \examples{
-serve_range <- c(10,25,37,52,100);
-foods_df$intake <- sample_safe(serve_range);
+DIETCOST::intake <- sample_safe(c(10,25,37,52,100));
 }

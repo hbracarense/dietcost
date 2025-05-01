@@ -19,6 +19,3 @@ Food groups dataframe with added constraint data.
 \description{
 Adds serves constraints to food groups dataframe
 }
-\examples{
-food_groups_df <- addFoodGroupsConstraintData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', food_groups_df, diets = c('C','PF', 'H'));
-}

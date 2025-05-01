@@ -17,5 +17,5 @@ add_range(variable, range, message)
 Checks if a variable is within a discrete range.
 }
 \examples{
-add__range(value, c('C','PF','H','PV'),'C, PF, H and PV')
+res <- DIETCOST::add__range(value, c('C','PF','H','PV'),'C, PF, H and PV')
 }

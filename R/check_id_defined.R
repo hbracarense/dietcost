@@ -4,8 +4,6 @@
 #' @param df1 First dataframe.
 #' @param df2 Second dataframe.
 #' @param value Dataset name.
-#' @examples 
-#' check_id_defined(df1, df, 'nutrition')
 #' @export
 check_id_defined <- function(df1, df2, value){
   check_df <- df1 %>% filter(!(food_id %in% unique(df2$food_id))) %>% pull(food_id)

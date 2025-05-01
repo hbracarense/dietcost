@@ -6,7 +6,7 @@
 #' @param person Individual whose random meal plan will be created to. Can be one of man, woman, boy or girl.
 #' @return Converted food group serves dataframe.
 #' @examples
-#' food_groups_wk <- convertWeeklyFoodGroups(food_groups_df, 'C', 'man');
+#' food_groups_wk <- DIETCOST::convertWeeklyFoodGroups(DIETCOST::food_groups, 'C', 'man');
 #' @export
 convertWeeklyFoodGroups <- function(df, diet, individual){
   min <- paste0(individual,'_min_serve_',diet)

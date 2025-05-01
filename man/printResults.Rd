@@ -20,6 +20,3 @@ printResults(results, person, diet, allowed_varieties, iterations)
 \description{
 Exports, in .xlsx format, the results of Monte Carlo simulation.
 }
-\examples{
-printResults(results, person, diet, allowed_varieties, iterations)#' 
-}

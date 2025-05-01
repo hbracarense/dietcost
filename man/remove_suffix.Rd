@@ -19,7 +19,3 @@ Vector of column names without suffixes.
 \description{
 Removes one of two suffixes from column names
 }
-\examples{
-nutrient_names <- remove_suffix(nutrient_names, '_grams','_mgrams')
-
-}

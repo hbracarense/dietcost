@@ -14,6 +14,3 @@ calculateGroupedResults(path_file, confidence_interval)
 \description{
 Calculates a confidence interval for price and footprints obtained through a Monte Carlo Simulation, grouped by food groups. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.
 }
-\examples{
-calculateGroupedResults('/my/folder', 0.05)
-}

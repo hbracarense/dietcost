@@ -25,6 +25,3 @@ Treated dataframe.
 \description{
 Pre-treatment of constraints dataframe.
 }
-\examples{
-treat_df(df1,min, max, diet_suffix, max_scale, override_min)
-}

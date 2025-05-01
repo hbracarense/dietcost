@@ -5,8 +5,6 @@
 #' @param df Food groups dataframe.
 #' @param diets Chosen diets. Constraint sheets in foods dataset must be of format 'constraints_DIETNAME_diet_food_groups', then the parameter passed will be DIETNAME. Can be a vector of diets in format c('DIETNAME1','DIETNAME2',...,'DIETNAMEN').
 #' @return Food groups dataframe with added constraint data.
-#' @examples 
-#' food_groups_df <- addFoodGroupsConstraintData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', food_groups_df, diets = c('C','PF', 'H'));
 #' @export
 addFoodGroupsConstraintData <- function(filepath, df, diets){
   standard_name_check(df, 'food_group')

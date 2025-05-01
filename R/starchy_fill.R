@@ -6,8 +6,6 @@
 #' @param serve_identifier Serve column identifier. Default 'serve'.
 #' @param max_identifier Max column identifier. Default 'max'.
 #' @return Food group dataframe with starchy vegetable minimum and maximum serves columns added.
-#' @examples 
-#' df <- starchy_fill(df, 'Starchy vegetables', 'serve', 'max')
 #' @export
 starchy_fill <- function(df,starchy_name, serve_identifier, max_identifier){
   row = which(df['food_group'] == starchy_name)

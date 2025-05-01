@@ -17,7 +17,3 @@ Percentage dataframe.
 \description{
 Calculates percentage nutrient values.
 }
-\examples{
-df <- getPerc(getNutrients(random_meal),random_meal);
-
-}

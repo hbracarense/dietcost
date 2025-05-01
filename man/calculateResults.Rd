@@ -14,6 +14,3 @@ calculateResults(path_file, confidence_interval)
 \description{
 Calculates a confidence interval for several parameters obtained through a Monte Carlo Simulation. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.
 }
-\examples{
-calculateResults('/my/folder', 0.05)
-}

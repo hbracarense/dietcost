@@ -5,9 +5,7 @@
 #' @param df Random meal plan.
 #' @param emission_cols Optional parameter. Emission column names if standard dataset isn't used.
 #' @return Random meal plan with price and emissions calculated.
-#' @examples
-#' df <-priceEmissionData(meal_plan);
-#' df <-priceEmissionData(meal_plan, c('CO2','WF_l'));
+
 #' @export
 #Apply price and emission data to food intake
 priceEmissionData <- function(df, emission_cols = NULL){

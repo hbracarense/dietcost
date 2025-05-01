@@ -17,10 +17,3 @@ Weekly dataframe.
 \description{
 Converts data from daily to weekly
 }
-\examples{
-  individual_n <- grep('individual',colnames(df))
-  diet_n <- grep('diet',colnames(df))
-  percentage_n <- grep(percentage,colnames(df))
-  exclusion_n <- c(individual_n,diet_n,percentage_n)
-  df <- converts_dataframe(df, exclusion_n)
-}

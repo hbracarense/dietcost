@@ -4,8 +4,6 @@
 #' @param filepath Path in which the dataset, in .xlsx format, is stored.
 #' @param redmeat_ids Vector of redmeat IDs.
 #' @return Food dataframe.
-#' @examples 
-#' foods_df <- createFoodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', redmeat_ids = c(71003, 71008, 71041, 81005, 81021, 81022, 81026, 81027, 81029))
 #' @export
 createFoodData <- function(filepath, redmeat_ids){
   df <- upload_data(filepath, 'foods')

@@ -4,7 +4,7 @@
 #' @param name Column in which missing values will be sought.
 #' @param column Column name, in string format.
 #' @examples 
-#' unique_values(df$food_id,"food ID");
+#' DIETCOST::unique_values(DIETCOST::foods$food_id,"food ID");
 #' @export
 check_function <- function(name, column){
   if(any(is.na(name))){

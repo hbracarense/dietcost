@@ -6,8 +6,7 @@
 #' @param diet Chosen diet. Must be DIETNAME from 'constraints_DIETNAME_diet_foods' sheet in dataset.
 #' @param allowed_varieties Permitted food varieties. Can be a vector of the following: 1,2 and/or 3.
 #' @param iterations Number of iterations. Integer.
-#' @examples
-#' printResults(results, person, diet, allowed_varieties, iterations)#' 
+
 #' @export
 printResults <- function(results, person, diet, allowed_varieties,iterations){
   general <- data.frame('Variable' = c('Individual', 'Diet', 'Varieties','Iterations', 'Hit meals', 'Path to hit meals'),

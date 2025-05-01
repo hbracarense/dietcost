@@ -17,5 +17,5 @@ add_float_range(variable, min, max)
 Checks if a numeric variable is within a continuous float range.
 }
 \examples{
-add_float_range(value, 0,100)
+res <- DIETCOST::add_float_range(value, 0,100)
 }

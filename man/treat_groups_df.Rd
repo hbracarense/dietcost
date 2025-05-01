@@ -17,6 +17,3 @@ Treated food group dataframe.
 \description{
 Converts weekly food group serves to daily and adds diet suffix to column names.
 }
-\examples{
-df <- treat_groups_df(df, 'C')
-}

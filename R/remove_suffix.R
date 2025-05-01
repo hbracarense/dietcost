@@ -5,8 +5,6 @@
 #' @param suffix_1 First suffix to be removed.
 #' @param suffix_2 Second suffix to be removed.
 #' @return Vector of column names without suffixes.
-#' @examples
-#'nutrient_names <- remove_suffix(nutrient_names, '_grams','_mgrams')
 #' 
 #' @export
 remove_suffix <- function(vector, suffix_1, suffix_2){

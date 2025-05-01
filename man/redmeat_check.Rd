@@ -14,6 +14,3 @@ redmeat_check(id, redmeat_ids)
 \description{
 Sets a boolean redmeat flag column in dataset.
 }
-\examples{
-df$redmeat <- sapply(df$food_id, redmeat_check, c(00001, 00002))
-}

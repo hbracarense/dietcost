@@ -4,8 +4,6 @@
 #' @param filepath Path in which the dataset, in .xlsx format, is stored..
 #' @param df Foods dataframe.
 #' @return Foods dataframe with added price data.
-#' @examples 
-#' foods_df <- addPriceData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df);
 #' @export
 addPriceData <- function(filepath, df){
   standard_name_check(df, 'food_id', 'food_name')

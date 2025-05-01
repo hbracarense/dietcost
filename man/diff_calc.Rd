@@ -19,7 +19,3 @@ Difference.
 \description{
 Calculates difference between values of random meal plan created and targets logged.
 }
-\examples{
-df$diff <- diff_calc(as.numeric(df$value), as.numeric(df$min), as.numeric(df$max));
-
-}

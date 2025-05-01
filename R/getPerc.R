@@ -4,8 +4,6 @@
 #' @param df_nutri Nutrient constraints dataframe.
 #' @param df_meal Random meal plan
 #' @return Percentage dataframe.
-#' @examples
-#' df <- getPerc(getNutrients(random_meal),random_meal);
 #' 
 #' @export
 getPerc <- function(df_nutri, df_meal){

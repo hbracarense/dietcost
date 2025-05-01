@@ -17,6 +17,3 @@ Foods dataframe with added price data.
 \description{
 Adds price data to foods dataframe.
 }
-\examples{
-foods_df <- addPriceData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df);
-}

@@ -13,5 +13,5 @@ check_variety(df)
 Checks if varieties are into the allowed range (1,2 or 3).
 }
 \examples{
-check_variety(df$variety)
+DIETCOST::check_variety(DIETCOST::foods$variety)
 }

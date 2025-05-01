@@ -16,6 +16,3 @@ check_id_defined(df1, df2, value)
 \description{
 Checks if a given food has an ID assigned but is absent in another dataset.
 }
-\examples{
-check_id_defined(df1, df, 'nutrition')
-}

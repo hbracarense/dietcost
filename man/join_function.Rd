@@ -16,7 +16,3 @@ join_function(df1, df2, condition)
 \description{
 Safely performs a left join between two dataframes.
 }
-\examples{
-df <- join_function(df1,df2,'food_id');
-df <- join_function(df1,df2,c('food_id','food_ID'));
-}

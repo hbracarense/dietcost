@@ -19,7 +19,3 @@ Food dataframe with emission data.
 \description{
 Adds emission data to foods dataframe.
 }
-\examples{
-foods_df <- addEmissionData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df);
-foods_df <- addEmissionData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df, emission_cols = c('CO2','WF_l'));
-}

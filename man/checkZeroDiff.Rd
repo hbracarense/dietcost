@@ -15,7 +15,3 @@ Boolean. TRUE if all zeroes, FALSE otherwise.
 \description{
 Checks if differences dataframe is all zeroes.
 }
-\examples{
-checkZeroDiff(nutrients_diff)
-
-}

@@ -4,8 +4,6 @@
 #' @param df1 First dataframe.
 #' @param df2 Second dataframe.
 #' @param condition Column to be joined.
-#' @examples 
-#' check_spelling(foods_df, emission_df, 'food_id')
 #' @export
 check_spelling <- function(df1, df2, condition){
   df <- join_function(df1, df2, condition)

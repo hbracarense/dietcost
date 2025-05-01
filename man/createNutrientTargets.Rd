@@ -35,6 +35,3 @@ Nutrient targets dataframe.
 \description{
 Adds nutrients data to foods dataframe.
 }
-\examples{
-nutrient_targets <- createNutrientTargets(filepath = 'C:/Users/username/Downloads/dataset.xlsx', allow_takeaway = FALSE, alcohol_perc_max = 20, discretionary_perc_max = 100);
-}

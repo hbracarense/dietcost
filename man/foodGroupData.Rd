@@ -19,6 +19,3 @@ Food groups dataframe.
 \description{
 Creates food groups dataframe, with constraints data, in a single function.
 }
-\examples{
-foods_df <- foodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df_foods = foods_df, diets = c('C', 'PF', 'H'));
-}

@@ -5,7 +5,7 @@
 #' @param min Minimum possible value.
 #' @param max Maximum possible value.
 #' @examples 
-#' add_float_range(value, 0,100)
+#' res <- DIETCOST::add_float_range(value, 0,100)
 #' @export
 add_float_range<- function(variable, min, max){
   if(variable<min || variable > max){

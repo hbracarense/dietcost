@@ -4,8 +4,6 @@
 #' @param check Boolean variable to permit optional food group.
 #' @param value Minimum percentage of energy intake from optional food group.
 #' @return Minimum percentage of energy intake from optional food group.
-#' @examples 
-#' alcohol <- checks_optional_food_groups(allow_alcohol, alcohol_perc_max)
 #' @export
 checks_optional_food_groups <- function(check, value){
   if(isTRUE(check)){

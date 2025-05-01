@@ -17,6 +17,3 @@ Minimum percentage of energy intake from optional food group.
 \description{
 If discretionary foods, alcohol or takeaway are permitted, looks for a minimum value and sets zero if missing,
 }
-\examples{
-alcohol <- checks_optional_food_groups(allow_alcohol, alcohol_perc_max)
-}

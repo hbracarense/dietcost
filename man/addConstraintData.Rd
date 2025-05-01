@@ -23,7 +23,3 @@ Foods dataframe with constraints columns.
 \description{
 Adds nutrients constraint data, according to chosen diet, to foods dataframe.
 }
-\examples{
-foods_df <- addConstraintData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df, diet = c('C', 'PF', 'H'), max_scale = 2);
-foods_df <- addConstraintData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df, diet = c('C', 'PF', 'H'), max_scale = 2, override_min = 50);
-}

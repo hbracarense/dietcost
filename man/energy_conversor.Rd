@@ -16,6 +16,3 @@ energy_conversor(df, min, max)
 \description{
 Converts energy values in megajoules (MJ) to kilojoules (KJ),
 }
-\examples{
-df <- energy_conversor(df, 'energy_mj_min', 'energy_mj_max')
-}

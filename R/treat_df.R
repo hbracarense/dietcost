@@ -9,8 +9,6 @@
 #' @param max_scale Maximum scale. Default is two.
 #' @param override_min If is not null, overrides all minimum values.
 #' @return Treated dataframe.
-#' @examples 
-#' treat_df(df1,min, max, diet_suffix, max_scale, override_min)
 #' @export
 treat_df <- function(df, min_identifier, max_identifier, suffix, max_scale, override_min){
   df_max <- df[,grepl(max_identifier, names(df))] %>% replace(is.na(.), 0)

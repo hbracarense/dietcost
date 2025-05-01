@@ -17,7 +17,3 @@ Nutrients dataframe.
 \description{
 Calculates nutritional value of meal plan.
 }
-\examples{
-df <- getPerc(getNutrients(random_meal),random_meal);
-
-}

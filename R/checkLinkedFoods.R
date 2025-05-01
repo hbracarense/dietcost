@@ -5,11 +5,6 @@
 #' @param low Vector of lower bound food IDs.
 #' @param high Vector of higher bound food IDs.
 #' @return Differences dataframe.
-#' @examples
-#' linked_milk_low <- c("69029", "79012", "70038", "69043");
-#' linked_milk_high <- c("79020", "79001", "79036", "79003", "79039");
-#' link_sum_1 <- checkLinkedFoods(random_meal, linked_milk_low, linked_milk_high);
-#' 
 #' @export
 checkLinkedFoods <- function(df, low, high){
   standard_name_check(df, 'food_id', 'serves')

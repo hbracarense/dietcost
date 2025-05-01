@@ -4,8 +4,6 @@
 #' @param df Random meal plan.
 #' @param nutrient_cols Optional parameter. Vector of nutrients column names to be used if nutrients are different from standard dataset.
 #' @return Nutrients dataframe.
-#' @examples
-#' df <- getPerc(getNutrients(random_meal),random_meal);
 #' 
 #' @export
 getNutrients <- function(df, nutrient_cols = NULL){

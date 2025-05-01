@@ -21,6 +21,3 @@ Food group dataframe with starchy vegetable minimum and maximum serves columns a
 \description{
 Adds minimum and maximum serves of starchy vegetables.
 }
-\examples{
-df <- starchy_fill(df, 'Starchy vegetables', 'serve', 'max')
-}

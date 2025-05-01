@@ -19,5 +19,5 @@ unique_values(value, df, value_col, value_name)
 Checks if there are non-unique values in dataset.
 }
 \examples{
-unique_values(df$food_id,df,'food_id', "food ID");
+DIETCOST::unique_values(DIETCOST::foods$food_id,df,'food_id', "food ID");
 }

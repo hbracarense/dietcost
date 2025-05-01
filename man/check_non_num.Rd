@@ -13,5 +13,5 @@ check_non_num(df)
 Checks if values supposed to be numeric are in fact numeric.
 }
 \examples{
-check_nom_num(df$food_id)
+DIETCOST::check_nom_num(DIETCOST::foods$food_id)
 }

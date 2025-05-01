@@ -4,8 +4,6 @@
 #' @param df Dataframe.
 #' @param suffix Suffix to be added to column.
 #' @return Treated food group dataframe.
-#' @examples 
-#' df <- treat_groups_df(df, 'C')
 #' @export
 treat_groups_df <- function(df, suffix){
   df <- df %>% replace(is.na(.), 0)

@@ -3,7 +3,7 @@
 #' Checks if all foods have a price.
 #' @param df Dataframe.
 #' @examples 
-#' check_match_food_price(df1)
+#' DIETCOST::check_match_food_price(DIETCOST::foods)
 #' @export
 check_match_food_price <- function(df){
   if(any(is.na(df$food_id))){

@@ -17,6 +17,3 @@ Foods dataframe with nutrient columns.
 \description{
 Adds nutrients data to foods dataframe.
 }
-\examples{
-foods_df <- addNutrientData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', df = foods_df);
-}

@@ -3,8 +3,6 @@
 #' Calculates total food group serves of random meal plan.
 #' @param df Random meal plan.
 #' @return Food group serves dataframe.
-#' @examples
-#' serves <- getFoodGroupServes(random_meal);
 #' 
 #' @export
 getFoodGroupServes <- function(df){

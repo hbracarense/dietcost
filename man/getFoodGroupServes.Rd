@@ -15,7 +15,3 @@ Food group serves dataframe.
 \description{
 Calculates total food group serves of random meal plan.
 }
-\examples{
-serves <- getFoodGroupServes(random_meal);
-
-}

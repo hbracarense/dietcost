@@ -9,14 +9,13 @@ random_plan(df, column, condition)
 \arguments{
 \item{df}{Dataframe.}
 
-\item{column}{Condition that, if is true, will enable radom removal.}
+\item{column}{Column from which decision about removal of values will be made.}
+
+\item{condition}{Condition that, if is true, will enable radom removal.}
 }
 \value{
 Random meal plan
 }
 \description{
 Randomly deletes a food.
-}
-\examples{
-foods_df <- random_plan(foods_df, 'food_group_id', discretionary_id)
 }

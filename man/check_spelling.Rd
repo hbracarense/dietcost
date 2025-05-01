@@ -16,6 +16,3 @@ check_spelling(df1, df2, condition)
 \description{
 Checks if two datasets have the same spelling in names column.
 }
-\examples{
-check_spelling(foods_df, emission_df, 'food_id')
-}

@@ -3,8 +3,6 @@
 #' Creates and populates a food group data dataframe
 #' @param df Foods dataframe.
 #' @return Food group dataframe.
-#' @examples 
-#' food_groups_df <- createFoodGroupData(foods_df);
 #' @export
 createFoodGroupData <- function(df){
   commonly_absent_groups <- c('Starchy vegetables', 'Alcohol', 'Discretionary foods', 'Takeaway')

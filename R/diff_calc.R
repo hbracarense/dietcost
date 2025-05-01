@@ -5,9 +5,6 @@
 #' @param min Minimum constraint.
 #' @param max Maximum constraint.
 #' @return Difference.
-#' @examples
-#' df$diff <- diff_calc(as.numeric(df$value), as.numeric(df$min), as.numeric(df$max));
-#' 
 #' @export
 diff_calc <- function(val, min, max){
   res <- ifelse((val < min),

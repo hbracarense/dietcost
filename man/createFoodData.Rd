@@ -17,6 +17,3 @@ Food dataframe.
 \description{
 Creates a food data dataframe
 }
-\examples{
-foods_df <- createFoodData(filepath = 'C:/Users/username/Downloads/dataset.xlsx', redmeat_ids = c(71003, 71008, 71041, 81005, 81021, 81022, 81026, 81027, 81029))
-}
