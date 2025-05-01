@@ -66,6 +66,6 @@ monteCarloSimulation(
 Runs Monte Carlo Simulation and prints results, in .xlsx format, in a single funtion.
 }
 \examples{
-monteCarloSimulation(100000, foods_df, nutrient_targets, food_groups_df, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, linked_low_1 = linked_bread_low, linked_high_1 = linked_bread_high, linked_low_2 = linked_milk_low, linked_high_2 = linked_milk_high)
+monteCarloSimulation(5, DIETCOST::foods, DIETCOST::nutrient_targets, DIETCOST::food_groups, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
 
 }
