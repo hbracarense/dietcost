@@ -13,7 +13,7 @@ calculateGroupedResults <- function(path_file, confidence_interval){
                       full.names = FALSE, recursive = FALSE,
                       ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
   
-  if(lenght(files) == 0){
+  if(base::lenght(files) == 0){
     stop("There aren't any files in said directory. Please try again.")
   } else{
     df <- data.frame(item = c('price', 'CF_gCO2eq', 'WF_l', 'EF_g_m2'))
