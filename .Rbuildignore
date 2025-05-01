@@ -4,3 +4,6 @@ dataset_examples*
 ^data-raw$
 ^LICENSE\.md$
 ^README\.Rmd$
+^.git$
+^.Rproj.user$
+^gitignore.txt$
