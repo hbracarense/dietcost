@@ -3,13 +3,13 @@
 #' Convenienc function making easy to access external data files.
 #' @param path A string containing the path to extdata folder.
 #' @examples
-#' dietcost_example("extdata")
+#' dietcostExample("extdata")
 #' 
 #' @export
 dietcostExample <- function(path = NULL) {
   if (is.null(path)) {
-    dir(system.file("extdata", package = "dietcost"))
+    dir(system.file("extdata", package = "DIETCOST"))
   } else {
-    system.file("extdata", path, package = "dietcost", mustWork = TRUE)
+    system.file("extdata", path, package = "DIETCOST", mustWork = TRUE)
   }
 }

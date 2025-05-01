@@ -13,6 +13,6 @@ dietcostExample(path = NULL)
 Convenienc function making easy to access external data files.
 }
 \examples{
-dietcost_example("extdata")
+dietcostExample("extdata")
 
 }
