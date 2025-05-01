@@ -4,7 +4,15 @@ Title: Calculate the cost and environmental impact of a ideal diet
 Version: 1.0.0.0
 RoxygenNote: 7.3.1
 Encoding: UTF-8
-Imports: readxl, rlang, dplyr, tidyselect, stats, xlsx, magrittr
+Imports: 
+    readxl,
+    rlang,
+    dplyr,
+    tidyselect,
+    stats,
+    xlsx,
+    magrittr,
+    writexl
 Depends: 
     R (>= 2.10)
 LazyData: true
