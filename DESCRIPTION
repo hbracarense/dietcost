@@ -18,3 +18,5 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-9690-575X"))
   )
 License: MIT + file LICENSE
+URL: https://github.com/hbracarense/dietcost
+BugReports: https://github.com/hbracarense/dietcost/issues
