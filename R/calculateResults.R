@@ -13,7 +13,7 @@ calculateResults <- function(path_file, confidence_interval){
                       full.names = FALSE, recursive = FALSE,
                       ignore.case = FALSE, include.dirs = FALSE, no.. = FALSE)
   
-  if(lenght(files) == 0){
+  if(is_empty(files)){
     stop("There aren't any files in said directory. Please try again.")
   } else{
     df <- data.frame(item = c('energy_kj_g', 'fat_g', 'sat_fat_g', 'CHO_g', 'sugars_g', 'protein_g', 'fat_perc', 'sat_fat_perc', 'CHO_perc', 'sugars_perc', 'fibre_g', 'protein_perc', 'red_meat_g', 'sodium_mg', 'fruit_serves', 'vegetable_serves', 'grains_serves', 'dairy_serves', 'protein_serves', 'fats_serves', 'sauces_serves', 'beverages_serves', 'ssb_serves', 'starchy_serves', 'red_meat_serves', 'alcohol_serves', 'discretionary_serves', 'fruit_perc', 'vegetable_perc', 'grains_perc', 'dairy_perc', 'protein_foods_perc', 'fats_perc', 'sauces_perc', 'beverages_perc', 'ssb_perc', 'starchy_perc', 'red_meat_perc', 'alcohol_perc', 'discretionary_perc', 'price', 'CF_gCO2eq', 'WF_l', 'EF_g_m2'))
