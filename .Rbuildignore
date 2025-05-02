@@ -7,3 +7,4 @@ dataset_examples*
 ^.git$
 ^.Rproj.user$
 ^gitignore.txt$
+^desktop.ini$

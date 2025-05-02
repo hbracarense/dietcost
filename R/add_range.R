@@ -4,8 +4,6 @@
 #' @param variable variable.
 #' @param range Allowed range.
 #' @param message Message to be printed in case of failure.
-#' @examples 
-#' res <- DIETCOST::add__range(value, c('C','PF','H','PV'),'C, PF, H and PV')
 #' @export
 add_range <- function(variable, range, message){
   if(is.null(variable) || !length(variable) || !all(variable %in% range)){
