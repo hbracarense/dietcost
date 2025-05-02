@@ -12,6 +12,3 @@ check_variety(df)
 \description{
 Checks if varieties are into the allowed range (1,2 or 3).
 }
-\examples{
-DIETCOST::check_variety(DIETCOST::foods$variety)
-}

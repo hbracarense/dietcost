@@ -7,7 +7,7 @@
 #' @param nutrient_constraints Optional parameter. Vector of nutrients column names to be used if not all nutrients are to be used as constraints.
 #' @return Converted nutrient targets dataframe.
 #' @examples
-#' nutrient_targets_wk <- convertWeeklyNutrientTargets(nutrient_targets, 'C', 'man')
+#' nutrient_targets_wk <- convertWeeklyNutrientTargets(DIETCOST::nutrient_targets, 'C', 'man')
 #' @export
 convertWeeklyNutrientTargets <- function(df, diet, person, nutrient_constraints = NULL){
   permitted_individuals(data.frame(individual = person))

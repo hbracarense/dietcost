@@ -5,8 +5,6 @@
 #' @param df Dataframe in which lies the column to be checked.
 #' @param value_col Name of the column to be checked, in string format.
 #' @param value_name Name of the variable tested.
-#' @examples 
-#' DIETCOST::unique_values(DIETCOST::foods$food_id,df,'food_id', "food ID");
 #' @export
 unique_values <- function(value, df, value_col, value_name){
   if(nrow(as.data.frame(unique(value)))<nrow(df)){

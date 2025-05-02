@@ -18,6 +18,3 @@ unique_values(value, df, value_col, value_name)
 \description{
 Checks if there are non-unique values in dataset.
 }
-\examples{
-DIETCOST::unique_values(DIETCOST::foods$food_id,df,'food_id', "food ID");
-}

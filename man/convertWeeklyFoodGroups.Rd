@@ -20,5 +20,5 @@ Converted food group serves dataframe.
 Converts food group serves dataframe to weekly values.
 }
 \examples{
-food_groups_wk <- DIETCOST::convertWeeklyFoodGroups(DIETCOST::food_groups, 'C', 'man');
+food_groups_wk <- convertWeeklyFoodGroups(DIETCOST::food_groups, 'C', 'man');
 }

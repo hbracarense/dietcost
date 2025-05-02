@@ -67,9 +67,9 @@ Runs Monte Carlo Simulation and prints results, in .xlsx format, in a single fun
 }
 \examples{
 monteCarloSimulation(iterations = 5,
-                     foods_df = foods,
-                     nutrient_targets_df = nutrient_targets,
-                     food_group_targets_df = food_groups,
+                     foods_df = DIETCOST::foods,
+                     nutrient_targets_df = DIETCOST::nutrient_targets,
+                     food_group_targets_df = DIETCOST::food_groups,
                      person = 'woman',
                      diet = 'PF',
                      allowed_varieties = c(1,2,3),

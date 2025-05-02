@@ -22,9 +22,9 @@
 #' @return List of dataframes, containing results of simulation.
 #' @examples
 #' results <- monteCarlo(iterations = 5,
-#'                       foods_df = foods,
-#'                       nutrient_targets_df = nutrient_targets,
-#'                       food_group_targets_df = food_groups,
+#'                       foods_df = DIETCOST::foods,
+#'                       nutrient_targets_df = DIETCOST::nutrient_targets,
+#'                       food_group_targets_df = DIETCOST::food_groups,
 #'                       person = 'woman',
 #'                       diet = 'C',
 #'                       allowed_varieties= c(1,2,3),

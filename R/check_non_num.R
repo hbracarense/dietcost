@@ -2,8 +2,6 @@
 #'
 #' Checks if values supposed to be numeric are in fact numeric.
 #' @param df Dataframe column.
-#' @examples 
-#'DIETCOST::check_nom_num(DIETCOST::foods$food_id)
 #' @export
 check_non_num <- function(df) {
   bad_num <- is.na(suppressWarnings(as.numeric(as.character(df))))

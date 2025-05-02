@@ -12,6 +12,3 @@ check_match_individual_diet(df)
 \description{
 Checks if all individuals have a matching diet.
 }
-\examples{
-DIETCOST::check_match_individual_diet(DIETCOST::nutrient_targets)
-}

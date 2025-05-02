@@ -15,5 +15,5 @@ standard_name_check(df, ...)
 Checks if variable names are the standard defined into DIETCOST R standard table.
 }
 \examples{
-standard_name_check(foods, 'food_id', 'food_name')
+standard_name_check(DIETCOST::foods, 'food_id', 'food_name')
 }

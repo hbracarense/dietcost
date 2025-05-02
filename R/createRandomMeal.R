@@ -14,8 +14,8 @@
 #' @param nutrient_cols Optional parameter. Nutrients column names if standard dataset isn't used.
 #' @return Random meal plan dataframe.
 #' @examples 
-#' foods_df <- createRandomMeal(foods_df = foods,
-#'                              targets_df = nutrient_targets,
+#' foods_df <- createRandomMeal(foods_df = DIETCOST::foods,
+#'                              targets_df = DIETCOST::nutrient_targets,
 #'                              person = 'man', 
 #'                              diet = 'C', 
 #'                              allowed_varieties = c(1,2,3), 

@@ -14,6 +14,3 @@ check_function(name, column)
 \description{
 Checks if there are any missing values in a given column from the dataset.
 }
-\examples{
-DIETCOST::unique_values(DIETCOST::foods$food_id,"food ID");
-}

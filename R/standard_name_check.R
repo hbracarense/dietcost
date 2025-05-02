@@ -4,7 +4,7 @@
 #' @param df Dataframe.
 #' @param ... Any number of strings.
 #' @examples 
-#'standard_name_check(foods, 'food_id', 'food_name')
+#'standard_name_check(DIETCOST::foods, 'food_id', 'food_name')
 #' @export
 standard_name_check <- function(df,...){
   variables <- list(...)

@@ -21,9 +21,9 @@
 #' @param linked_high_2 Optional parameter. Vector of higher bound food IDs.
 #' @examples
 #' monteCarloSimulation(iterations = 5,
-#'                      foods_df = foods,
-#'                      nutrient_targets_df = nutrient_targets,
-#'                      food_group_targets_df = food_groups,
+#'                      foods_df = DIETCOST::foods,
+#'                      nutrient_targets_df = DIETCOST::nutrient_targets,
+#'                      food_group_targets_df = DIETCOST::food_groups,
 #'                      person = 'woman',
 #'                      diet = 'PF',
 #'                      allowed_varieties = c(1,2,3),

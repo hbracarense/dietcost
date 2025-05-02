@@ -12,6 +12,3 @@ check_match_food_price(df)
 \description{
 Checks if all foods have a price.
 }
-\examples{
-DIETCOST::check_match_food_price(DIETCOST::foods)
-}
