@@ -21,7 +21,17 @@
 #' @param linked_high_2 Optional parameter. Vector of higher bound food IDs.
 #' @return List of dataframes, containing results of simulation.
 #' @examples
-#' results <- DIETCOST::monteCarlo(5, dietcost::foods, DIETCOST::nutrient_targets_df, DIETCOST::food_groupS, person = 'woman', diet = 'C', allowed_varieties= c(1,2,3), min_serve_size_difference=0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
+#' results <- monteCarlo(iterations = 5,
+#'                       foods_df = foods,
+#'                       nutrient_targets_df = nutrient_targets,
+#'                       food_group_targets_df = food_groups,
+#'                       person = 'woman',
+#'                       diet = 'C',
+#'                       allowed_varieties= c(1,2,3),
+#'                       min_serve_size_difference=0.5,
+#'                       allow_discretionary = TRUE,
+#'                       allow_alcohol = TRUE,
+#'                       allow_takeaway = TRUE)
 #' 
 #' @export
 monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL, nutrient_constraints = NULL, linked_low_1 = NULL, linked_high_1 = NULL, linked_low_2 = NULL, linked_high_2 = NULL){
@@ -38,7 +48,7 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
   for(i in 1:iterations){
     nutrients_plan <- getPerc(getNutrients(df = meal_plan, nutrient_cols = nutrient_cols),meal_plan)
     serves_plan <- getFoodGroupServes(df = meal_plan)
-    nutrient_targets_wk <- convertWeeklyNutrientTargets(nutrient_targets, diet = diet, person = person, nutrient_constraints = nutrient_constraints)
+    nutrient_targets_wk <- convertWeeklyNutrientTargets(nutrient_targets_df, diet = diet, person = person, nutrient_constraints = nutrient_constraints)
     food_groups_wk <- convertWeeklyFoodGroups(food_group_targets_df, diet = diet, individual = person)
     nutrients_diff <- getDifference(df_target = nutrient_targets_wk, df_nutrients = nutrients_plan, merge_col = 'nutrient')
     serves_diff <- getDifference(df_target = food_groups_wk, df_nutrients = serves_plan, merge_col = ,c('food_group','food_group_id'))

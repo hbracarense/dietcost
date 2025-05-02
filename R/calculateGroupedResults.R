@@ -28,10 +28,10 @@ calculateGroupedResults <- function(path_file, confidence_interval){
       meal_df$EF_g_m2 <- (meal_df$EF_g_m2/1000)*meal_df$intake
       for(i in nrow(df)){
         switch(df$item[i],
-               'price' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(price, na.rm = TRUE)) %>% select(!!col)},
-               'CF_gCO2eq' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(CF_gCO2eq, na.rm = TRUE)) %>% select(!!col)},
-               'WF_l' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(WF_l, na.rm = TRUE)) %>% select(!!col)},
-               'EF_g_m2' = {df[i, col] <- meal_df %>% group_by(food_group) %>% summarise(!!col := sum(EF_g_m2, na.rm = TRUE)) %>% select(!!col)}
+               'price' = {df[i, col] <- meal_df %>% group_by(.data$food_group) %>% summarise(!!col := sum(.data$price, na.rm = TRUE)) %>% select(!!col)},
+               'CF_gCO2eq' = {df[i, col] <- meal_df %>% group_by(.data$food_group) %>% summarise(!!col := sum(.data$CF_gCO2eq, na.rm = TRUE)) %>% select(!!col)},
+               'WF_l' = {df[i, col] <- meal_df %>% group_by(.data$food_group) %>% summarise(!!col := sum(.data$WF_l, na.rm = TRUE)) %>% select(!!col)},
+               'EF_g_m2' = {df[i, col] <- meal_df %>% group_by(.data$food_group) %>% summarise(!!col := sum(.data$EF_g_m2, na.rm = TRUE)) %>% select(!!col)}
         )
       }
     }
@@ -48,7 +48,7 @@ calculateGroupedResults <- function(path_file, confidence_interval){
       
     }
     df_results[nrow(df_results)+1,] <-c('n',n,NA)
-    write_xlsx(df_results, file.path(getwd(), paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')))
+    write.xlsx(df_results, paste0('calculated_group_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx'), sheetName = 'Results', row.names = FALSE)
   }
   
 }

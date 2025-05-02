@@ -15,7 +15,7 @@ check_spelling <- function(df1, df2, condition){
   )
   
   if(any(df$result == 1)){
-    df_e = df %>% filter(result == 1)
+    df_e = df %>% filter(.data$result == 1)
     for(i in 1:nrow(df_e)){
       e = paste("ID",df_e$'food_id'[i],"has distinct names in both sheets:",df_e$'food_name.x'[i],"and",df_e$'food_name.y'[i],".")
       print(e)

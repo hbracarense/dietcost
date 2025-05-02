@@ -11,7 +11,7 @@ convertWeeklyFoodGroups(df, diet, individual)
 
 \item{diet}{Chosen diet. Must be DIETNAME from 'constraints_DIETNAME_diet_food_groups' sheet in dataset.}
 
-\item{person}{Individual whose random meal plan will be created to. Can be one of man, woman, boy or girl.}
+\item{individual}{Individual whose random meal plan will be created to. Can be one of man, woman, boy or girl.}
 }
 \value{
 Converted food group serves dataframe.

@@ -69,6 +69,16 @@ List of dataframes, containing results of simulation.
 Creates a Monte Carlo simulation to a given number of iterations. A hit meal consists of one that returnz zero difference between nutrient targets and random meal plan, food groups serves and respects lower linked foods serves lower or equal to higher linked foods serves, if existent.
 }
 \examples{
-results <- DIETCOST::monteCarlo(5, dietcost::foods, DIETCOST::nutrient_targets_df, DIETCOST::food_groupS, person = 'woman', diet = 'C', allowed_varieties= c(1,2,3), min_serve_size_difference=0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
+results <- monteCarlo(iterations = 5,
+                      foods_df = foods,
+                      nutrient_targets_df = nutrient_targets,
+                      food_group_targets_df = food_groups,
+                      person = 'woman',
+                      diet = 'C',
+                      allowed_varieties= c(1,2,3),
+                      min_serve_size_difference=0.5,
+                      allow_discretionary = TRUE,
+                      allow_alcohol = TRUE,
+                      allow_takeaway = TRUE)
 
 }

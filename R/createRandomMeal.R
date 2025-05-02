@@ -14,7 +14,15 @@
 #' @param nutrient_cols Optional parameter. Nutrients column names if standard dataset isn't used.
 #' @return Random meal plan dataframe.
 #' @examples 
-#' foods_df <- DIETCOST::createRandomMeal(foods_df = DIETCOST::foods, targets_df = DIETCOST::nutrient_targets, person = 'man', diet = 'C', allowed_varieties = c(1,2,3), min_serve_size_difference = 0.5, allow_takeaway = TRUE, allow_alcohol = TRUE, allow_discretionary = TRUE);
+#' foods_df <- createRandomMeal(foods_df = foods,
+#'                              targets_df = nutrient_targets,
+#'                              person = 'man', 
+#'                              diet = 'C', 
+#'                              allowed_varieties = c(1,2,3), 
+#'                              min_serve_size_difference = 0.5, 
+#'                              allow_takeaway = TRUE, 
+#'                              allow_alcohol = TRUE, 
+#'                              allow_discretionary = TRUE)
 #' @export
 createRandomMeal <- function(foods_df, targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL){
   add_range(allowed_varieties,1:3,'1, 2, 3')
@@ -49,8 +57,8 @@ createRandomMeal <- function(foods_df, targets_df, person, diet, allowed_varieti
                         0)
   
   diet_f <- diet
-  targets_df <- targets_df %>% filter(diet == diet_f & individual == person)
-  foods_df <- foods_df %>% filter(variety %in% allowed_varieties) %>% select(all_of('food_id'),
+  targets_df <- targets_df %>% filter(.data$diet == diet_f & .data$individual == person)
+  foods_df <- foods_df %>% filter(.data$variety %in% allowed_varieties) %>% select(all_of('food_id'),
                                                                              all_of('food_name'),
                                                                              all_of('food_group_id'),
                                                                              all_of('food_group'),
@@ -62,13 +70,13 @@ createRandomMeal <- function(foods_df, targets_df, person, diet, allowed_varieti
                                                                              all_of(nutrient_cols),
                                                                              all_of('price'))
   if(!isTRUE(allow_discretionary)||(isTRUE(allow_discretionary) && targets_df$discretionary_perc_max == 0) && ('Discretionary foods' %in% foods_df$food_group)){
-    foods_df <- foods_df %>% filter(food_group_id != discretionary_id)
+    foods_df <- foods_df %>% filter(.data$food_group_id != discretionary_id)
   }
   if(!isTRUE(allow_alcohol)||(isTRUE(allow_alcohol) && targets_df$alcohol_perc_max == 0) && ('Alcohol' %in% foods_df$food_group)){
-    foods_df <- foods_df %>% filter(food_group_id != alcohol_id)
+    foods_df <- foods_df %>% filter(.data$food_group_id != alcohol_id)
   }
   if(!isTRUE(allow_takeaway)||(isTRUE(allow_takeaway) && targets_df$takeaway_perc_max == 0) && ('Takeaway' %in% foods_df$food_group)){
-    foods_df <- foods_df %>% filter(food_group_id != takeaway_id)
+    foods_df <- foods_df %>% filter(.data$food_group_id != takeaway_id)
   }
   foods_df$intake <- double(nrow(foods_df))
   foods_df <- random_plan(foods_df, 'food_group_id', discretionary_id)

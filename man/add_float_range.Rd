@@ -16,6 +16,3 @@ add_float_range(variable, min, max)
 \description{
 Checks if a numeric variable is within a continuous float range.
 }
-\examples{
-res <- DIETCOST::add_float_range(value, 0,100)
-}

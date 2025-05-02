@@ -1,9 +1,10 @@
 #' Foods dataset example
 #' 
 #' A set of data containing commonly available foods based on a Brazilian typical diet.
-#' 
-#' @format ##`foods`
-#' A dataframe with 99 rows and 45 columns:
+#' @docType data
+#' @keywords dataset
+#' @name foods
+#' @format A dataframe with 99 rows and 45 columns:
 #' \describe{
 #'  \item{food_group}{Food group, i.e. 'Fruit' or 'Vegetable'}
 #'  \item{food_group_id}{Numerical code for dood group}
@@ -53,3 +54,4 @@
 #' }
 #' 
 #' @source Elaborated by authors.
+"foods"

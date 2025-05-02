@@ -3,7 +3,7 @@
 #' Converts food group serves dataframe to weekly values.
 #' @param df Food group serves dataframe.
 #' @param diet Chosen diet. Must be DIETNAME from 'constraints_DIETNAME_diet_food_groups' sheet in dataset.
-#' @param person Individual whose random meal plan will be created to. Can be one of man, woman, boy or girl.
+#' @param individual Individual whose random meal plan will be created to. Can be one of man, woman, boy or girl.
 #' @return Converted food group serves dataframe.
 #' @examples
 #' food_groups_wk <- DIETCOST::convertWeeklyFoodGroups(DIETCOST::food_groups, 'C', 'man');

@@ -48,5 +48,13 @@ Random meal plan dataframe.
 Creates a random meal plan.
 }
 \examples{
-foods_df <- DIETCOST::createRandomMeal(foods_df = DIETCOST::foods, targets_df = DIETCOST::nutrient_targets, person = 'man', diet = 'C', allowed_varieties = c(1,2,3), min_serve_size_difference = 0.5, allow_takeaway = TRUE, allow_alcohol = TRUE, allow_discretionary = TRUE);
+foods_df <- createRandomMeal(foods_df = foods,
+                             targets_df = nutrient_targets,
+                             person = 'man', 
+                             diet = 'C', 
+                             allowed_varieties = c(1,2,3), 
+                             min_serve_size_difference = 0.5, 
+                             allow_takeaway = TRUE, 
+                             allow_alcohol = TRUE, 
+                             allow_discretionary = TRUE)
 }

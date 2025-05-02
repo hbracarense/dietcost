@@ -16,6 +16,8 @@ calculateResults <- function(path_file, confidence_interval){
   if(is_empty(files)){
     stop("There aren't any files in said directory. Please try again.")
   } else{
+    f1 <- 37.7
+    f2 <- 16.7
     df <- data.frame(item = c('energy_kj_g', 'fat_g', 'sat_fat_g', 'CHO_g', 'sugars_g', 'protein_g', 'fat_perc', 'sat_fat_perc', 'CHO_perc', 'sugars_perc', 'fibre_g', 'protein_perc', 'red_meat_g', 'sodium_mg', 'fruit_serves', 'vegetable_serves', 'grains_serves', 'dairy_serves', 'protein_serves', 'fats_serves', 'sauces_serves', 'beverages_serves', 'ssb_serves', 'starchy_serves', 'red_meat_serves', 'alcohol_serves', 'discretionary_serves', 'fruit_perc', 'vegetable_perc', 'grains_perc', 'dairy_perc', 'protein_foods_perc', 'fats_perc', 'sauces_perc', 'beverages_perc', 'ssb_perc', 'starchy_perc', 'red_meat_perc', 'alcohol_perc', 'discretionary_perc', 'price', 'CF_gCO2eq', 'WF_l', 'EF_g_m2'))
     confidence_interval <- 1 - (confidence_interval/2)
     for(file in files){
@@ -87,6 +89,6 @@ calculateResults <- function(path_file, confidence_interval){
     }
     
     df_results[nrow(df_results)+1,] <-c('n',n,NA)
-    write_xlsx(df_results, file.path(getwd(), paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')))
+    write.xlsx(df_results, paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx'), sheetName = 'Results', row.names = FALSE)
   }
 }

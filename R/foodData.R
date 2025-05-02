@@ -13,7 +13,7 @@ foodData <- function(filepath = filepath, redmeat_ids, diets, max_scale, emissio
   df <- createFoodData(filepath = filepath, redmeat_ids = redmeat_ids)
   df <- addEmissionData(filepath = filepath, df = df, emission_cols = emission_cols)
   for(i in 1:length(diets)){
-    df <- addConstraintData(filepath = filepath, df = df, diet = diets[i], max_scale = max_scale, override_min = override_min)
+    df <- addConstraintData(filepath = filepath, df = df, diets = diets[i], max_scale = max_scale, override_min = override_min)
   }
   df <- addNutrientData(filepath = filepath, df = df)
   df <- addPriceData(filepath = filepath, df = df)

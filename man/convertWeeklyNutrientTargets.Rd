@@ -22,5 +22,5 @@ Converted nutrient targets dataframe.
 Converts nutrient targets dataframe to weekly values.
 }
 \examples{
-nutrient_targets_wk <- DIETCOST::convertWeeklyNutrientTargets(DIETCOST::nutrient_targets, 'C', 'man')
+nutrient_targets_wk <- convertWeeklyNutrientTargets(nutrient_targets, 'C', 'man')
 }

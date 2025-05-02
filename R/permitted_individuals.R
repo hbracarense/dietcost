@@ -5,7 +5,7 @@
 #' @export
 permitted_individuals <- function(df){
   possible_individuals <- c('man', 'woman', 'boy','girl')
-  check <- df %>% filter(!(individual %in% possible_individuals)) %>% pull(individual)
+  check <- df %>% filter(!(.data$individual %in% possible_individuals)) %>% pull(.data$individual)
   if(length(check)>0){
     for(i in 1:length(check)){
       print(paste("Individual",check[i],"isn't allowed."))

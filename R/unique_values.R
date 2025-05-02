@@ -9,8 +9,8 @@
 #' DIETCOST::unique_values(DIETCOST::foods$food_id,df,'food_id', "food ID");
 #' @export
 unique_values <- function(value, df, value_col, value_name){
-  if(length(unique(value))<nrow(df)){
-    duplicates = df %>% group_by(UQ(sym(value_col))) %>% summarise(n=n()) %>% filter(n>1)
+  if(nrow(as.data.frame(unique(value)))<nrow(df)){
+    duplicates = df %>% group_by(UQ(sym(value_col))) %>% summarise(n=n()) %>% filter(.data$n>1)
     colnames(duplicates) <- c("value", "n")
     stop(paste("Check the data! There are duplicates!", duplicates$value))
   } else{

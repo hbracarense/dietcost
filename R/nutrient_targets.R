@@ -1,9 +1,10 @@
 #' Nutrients dataset example
 #' 
 #' A set of data containing nutrient weekly targets based on a Brazilian typical diet.
-#' 
-#' @format ##`nutrient_targets`
-#' A dataframe with 12 rows and 48 columns:
+#' @docType data
+#' @keywords dataset
+#' @name nutrient_targets
+#' @format A dataframe with 12 rows and 48 columns:
 #' \describe{
 #'  \item{individual}{Person whose nutrient targets will be provided: man, woman, boy or girl}
 #'  \item{diet}{Diet whose nutrient targets will be provided: current (C), EAT-Lancet (PF) or healthy (H)}
@@ -56,3 +57,4 @@
 #' }
 #' 
 #' @source Elaborated by authors.
+"nutrient_targets"
