@@ -66,6 +66,7 @@ monteCarloSimulation(
 Runs Monte Carlo Simulation and prints results, in .xlsx format, in a single funtion.
 }
 \examples{
+\dontrun{
 monteCarloSimulation(iterations = 5,
                      foods_df = DIETCOST::foods,
                      nutrient_targets_df = DIETCOST::nutrient_targets,
@@ -77,5 +78,6 @@ monteCarloSimulation(iterations = 5,
                      allow_discretionary = TRUE,
                      allow_alcohol = TRUE,
                      allow_takeaway = TRUE)
+}
 
 }
