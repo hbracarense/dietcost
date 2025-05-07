@@ -15,6 +15,9 @@ unique_values(value, df, value_col, value_name)
 
 \item{value_name}{Name of the variable tested.}
 }
+\value{
+No R object return, performs only a check.
+}
 \description{
 Checks if there are non-unique values in dataset.
 }

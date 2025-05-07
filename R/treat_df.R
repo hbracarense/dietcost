@@ -19,7 +19,7 @@ treat_df <- function(df, min_identifier, max_identifier, suffix, max_scale, over
     df_min[] <- lapply(df_min, FUN = function(x) if (is.numeric(x)) return(x * 2) else return(x))
   } else{
     df_min[] <- lapply(df_min, FUN = function(x) x = override_min)
-    print(paste("All food min overriden to", override_min))
+    message(paste("All food min overriden to", override_min))
   }
   df <- data.frame(cbind(df_id,df_min, df_max))
   col1 = 'serve_size'

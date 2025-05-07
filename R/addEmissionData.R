@@ -18,13 +18,13 @@ addEmissionData <- function(filepath, df, emission_cols = NULL){
   }
   check_nom_num_df(df1[,(names(df1) %in% cols)])
   df <- join_function(df,df1[,cols],'food_id')
-  print("Emission data added to food dataframe with success.")
+  message("Emission data added to food dataframe with success.")
   na_rows_emissions <-df[!complete.cases(df),]
   if(nrow(na_rows_emissions) > 0){
-    lapply(na_rows_emissions$food_id, function(x) print(paste("ID",x,"is missing in emission sheets.")))
+    lapply(na_rows_emissions$food_id, function(x) message(paste("ID",x,"is missing in emission sheets.")))
     stop("Check the data and rerun the application.")
   } else{
-    print("All logged foods have emission data.")
+    message("All logged foods have emission data.")
   }
   return(df)
 }

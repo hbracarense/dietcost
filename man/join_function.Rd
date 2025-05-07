@@ -13,6 +13,9 @@ join_function(df1, df2, condition)
 
 \item{condition}{Column in which the two datframes will be joined. Can be a single string or a vector.}
 }
+\value{
+Dataframe.
+}
 \description{
 Safely performs a left join between two dataframes.
 }

@@ -9,6 +9,9 @@ check_non_num(df)
 \arguments{
 \item{df}{Dataframe column.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if values supposed to be numeric are in fact numeric.
 }

@@ -1,6 +1,7 @@
 #' Single-function Monte Carlo simulation and results export.
 #' 
 #' Runs Monte Carlo Simulation and prints results, in .xlsx format, in a single funtion.
+#' @param dir_path A string containing the path where a directory will be created. This same path will hold the reports Excel workbook.
 #' @param iterations Number of iterations. Integer.
 #' @param foods_df Foods dataframe.
 #' @param nutrient_targets_df Nutrient constraints dataframe.
@@ -19,9 +20,11 @@
 #' @param linked_high_1 Optional parameter. Vector of higher bound food IDs.
 #' @param linked_low_2 Optional parameter. Vector of lower bound food IDs.
 #' @param linked_high_2 Optional parameter. Vector of higher bound food IDs.
+#' @return No R object return. Prints an Excel workbook.
 #' @examples
-#' \dontrun{
-#' monteCarloSimulation(iterations = 5,
+#' \donttest{
+#' monteCarloSimulation(dir_path = home/Downloads,
+#'                      iterations = 5,
 #'                      foods_df = DIETCOST::foods,
 #'                      nutrient_targets_df = DIETCOST::nutrient_targets,
 #'                      food_group_targets_df = DIETCOST::food_groups,
@@ -62,6 +65,6 @@ monteCarloSimulation <- function(iterations, foods_df, nutrient_targets_df, food
       }
     }
   }
-  results <- monteCarlo(iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary, allow_alcohol, allow_takeaway, emission_cols, nutrient_cols, nutrient_constraints, linked_low_1, linked_high_1, linked_low_2, linked_high_2)
-  printResults(results, person, diet, allowed_varieties, iterations)
+  results <- monteCarlo(dir_path, iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary, allow_alcohol, allow_takeaway, emission_cols, nutrient_cols, nutrient_constraints, linked_low_1, linked_high_1, linked_low_2, linked_high_2)
+  printResults(dir_path, results, person, diet, allowed_varieties, iterations)
 }

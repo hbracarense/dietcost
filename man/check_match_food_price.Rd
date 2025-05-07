@@ -9,6 +9,9 @@ check_match_food_price(df)
 \arguments{
 \item{df}{Dataframe.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if all foods have a price.
 }

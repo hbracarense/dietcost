@@ -13,6 +13,9 @@ energy_conversor(df, min, max)
 
 \item{max}{Maximum energy column name. Default 'energy_mj_max'.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Converts energy values in megajoules (MJ) to kilojoules (KJ),
 }

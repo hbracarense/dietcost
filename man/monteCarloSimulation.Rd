@@ -61,13 +61,19 @@ monteCarloSimulation(
 \item{linked_low_2}{Optional parameter. Vector of lower bound food IDs.}
 
 \item{linked_high_2}{Optional parameter. Vector of higher bound food IDs.}
+
+\item{dir_path}{A string containing the path where a directory will be created. This same path will hold the reports Excel workbook.}
+}
+\value{
+No R object return. Prints an Excel workbook.
 }
 \description{
 Runs Monte Carlo Simulation and prints results, in .xlsx format, in a single funtion.
 }
 \examples{
-\dontrun{
-monteCarloSimulation(iterations = 5,
+\donttest{
+monteCarloSimulation(dir_path = home/Downloads,
+                     iterations = 5,
                      foods_df = DIETCOST::foods,
                      nutrient_targets_df = DIETCOST::nutrient_targets,
                      food_group_targets_df = DIETCOST::food_groups,

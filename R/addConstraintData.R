@@ -25,6 +25,6 @@ addConstraintData <- function(filepath, df, diets, max_scale, override_min = NUL
     check_nom_num_df(df1[,!(names(df1) %in% c('food_id', 'food_name', "food_group"))])
     df <- join_function(df, df1, 'food_id')
   }
-  print('Food constraints added with success.')
+  message('Food constraints added with success.')
   return(df)
 }

@@ -32,7 +32,7 @@ getNutrients <- function(df, nutrient_cols = NULL){
       )
     },
     error = function(e){
-      print('Check your data!')
+      message('Check your data!')
       stop(e)
     }
   )

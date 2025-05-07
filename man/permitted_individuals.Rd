@@ -9,6 +9,9 @@ permitted_individuals(df)
 \arguments{
 \item{df}{Variable.}
 }
+\value{
+No R object return, performs only a check.
+}
 \description{
 Checks if logged individuals are one or all of the following: man, woman, boy or girl.
 }

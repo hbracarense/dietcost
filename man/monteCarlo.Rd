@@ -5,6 +5,7 @@
 \title{Monte Carlo simulation}
 \usage{
 monteCarlo(
+  dir_path,
   iterations,
   foods_df,
   nutrient_targets_df,
@@ -26,6 +27,8 @@ monteCarlo(
 )
 }
 \arguments{
+\item{dir_path}{A string containing the path where a directory will be created.}
+
 \item{iterations}{Number of iterations. Integer.}
 
 \item{foods_df}{Foods dataframe.}
@@ -69,8 +72,9 @@ List of dataframes, containing results of simulation.
 Creates a Monte Carlo simulation to a given number of iterations. A hit meal consists of one that returnz zero difference between nutrient targets and random meal plan, food groups serves and respects lower linked foods serves lower or equal to higher linked foods serves, if existent.
 }
 \examples{
-\dontrun{
-results <- monteCarlo(iterations = 5,
+\donttest{
+results <- monteCarlo(dir_path = home/Downloads,
+                      iterations = 5,
                       foods_df = DIETCOST::foods,
                       nutrient_targets_df = DIETCOST::nutrient_targets,
                       food_group_targets_df = DIETCOST::food_groups,

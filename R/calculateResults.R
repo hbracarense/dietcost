@@ -2,9 +2,11 @@
 #'
 #'Calculates a confidence interval for several parameters obtained through a Monte Carlo Simulation. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.
 #'@param path_file A string containing the path to the folder containing the .csv files created in the monteCarlo function.
+#'@param report_path A string containing the path to where the report will be saved.
 #'@param confidence_interval A float. Must be either 0.01, 0.05 or 0.1.
+#'@return No R object return, prints an Excel workbook.
 #'@export
-calculateResults <- function(path_file, confidence_interval){
+calculateResults <- function(path_file, report_path, confidence_interval){
   if(!(confidence_interval %in% c(0.01, 0.05, 0.1))){
     stop('Confidence interval must be either 0.01, 0.05 or 0.1. Please try again!')
   }
@@ -89,6 +91,7 @@ calculateResults <- function(path_file, confidence_interval){
     }
     
     df_results[nrow(df_results)+1,] <-c('n',n,NA)
-    write.xlsx(df_results, paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx'), sheetName = 'Results', row.names = FALSE)
+    file_path <- paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')
+    write.xlsx(df_results, file.path(report_path, file_name), sheetName = 'Results', row.names = FALSE)
   }
 }

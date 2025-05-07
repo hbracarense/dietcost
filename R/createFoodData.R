@@ -12,9 +12,9 @@ createFoodData <- function(filepath, redmeat_ids){
   lapply(df$food_name, check_function, 'food names')
   check_variety(df$variety)
   df$food_group <- sapply(df$food_group, sauces_protein_discretionary_change)
-  print("Food group names altered with success.")
+  message("Food group names altered with success.")
   df$redmeat <- sapply(df$food_id, redmeat_check, redmeat_ids)
-  print("Red meat flag added with success.")
-  print('Food data dataframe created with success.')
+  message("Red meat flag added with success.")
+  message('Food data dataframe created with success.')
   return(df)
 }

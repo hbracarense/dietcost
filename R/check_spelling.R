@@ -4,6 +4,7 @@
 #' @param df1 First dataframe.
 #' @param df2 Second dataframe.
 #' @param condition Column to be joined.
+#' @return No return, only performs a check.
 #' @export
 check_spelling <- function(df1, df2, condition){
   df <- join_function(df1, df2, condition)
@@ -18,7 +19,7 @@ check_spelling <- function(df1, df2, condition){
     df_e = df %>% filter(.data$result == 1)
     for(i in 1:nrow(df_e)){
       e = paste("ID",df_e$'food_id'[i],"has distinct names in both sheets:",df_e$'food_name.x'[i],"and",df_e$'food_name.y'[i],".")
-      print(e)
+      message(e)
       if(i == nrow(df_e)){
         rm(df)
         rm(df_e)
@@ -27,7 +28,7 @@ check_spelling <- function(df1, df2, condition){
     } 
     
   } else{
-    print("No name mismatches between datasets.")
+    message("No name mismatches between datasets.")
   }
   rm(df)
 }

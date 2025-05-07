@@ -2,6 +2,7 @@
 #'
 #' Checks if values supposed to be numeric are in fact numeric.
 #' @param df Dataframe columns.
+#' @return No return, only performs a check.
 #' @export
 check_nom_num_df <- function(df){
   if(0 %in% lapply(df, check_non_num)){

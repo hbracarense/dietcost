@@ -13,6 +13,9 @@ add_float_range(variable, min, max)
 
 \item{max}{Maximum possible value.}
 }
+\value{
+No return value,only performs a check.
+}
 \description{
 Checks if a numeric variable is within a continuous float range.
 }

@@ -3,6 +3,7 @@
 #' Checks if there are any missing values in a given column from the dataset.
 #' @param name Column in which missing values will be sought.
 #' @param column Column name, in string format.
+#' @return No return, only performs a check.
 #' @export
 check_function <- function(name, column){
   if(any(is.na(name))){

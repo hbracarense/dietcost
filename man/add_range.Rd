@@ -13,6 +13,9 @@ add_range(variable, range, message)
 
 \item{message}{Message to be printed in case of failure.}
 }
+\value{
+No return value, only performs a check.
+}
 \description{
 Checks if a variable is within a discrete range.
 }

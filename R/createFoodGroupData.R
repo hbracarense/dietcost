@@ -33,6 +33,6 @@ createFoodGroupData <- function(df){
   }
   
   unique_values(food_groups_df$food_group_id, food_groups_df, 'food_group_id', "food group ID")
-  print("Food group dataframe created with success.")
+  message("Food group dataframe created with success.")
   return(food_groups_df)
 }

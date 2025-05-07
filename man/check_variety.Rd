@@ -9,6 +9,9 @@ check_variety(df)
 \arguments{
 \item{df}{Dataframe variety column.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if varieties are into the allowed range (1,2 or 3).
 }

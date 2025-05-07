@@ -9,6 +9,9 @@ check_nom_num_df(df)
 \arguments{
 \item{df}{Dataframe columns.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if values supposed to be numeric are in fact numeric.
 }

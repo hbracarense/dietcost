@@ -2,6 +2,7 @@
 #'
 #' Checks if all foods have a price.
 #' @param df Dataframe.
+#' @return No return, only performs a check.
 #' @export
 check_match_food_price <- function(df){
   if(any(is.na(df$food_id))){

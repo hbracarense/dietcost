@@ -11,6 +11,9 @@ standard_name_check(df, ...)
 
 \item{...}{Any number of strings.}
 }
+\value{
+No R object return, performs only a check.
+}
 \description{
 Checks if variable names are the standard defined into DIETCOST R standard table.
 }

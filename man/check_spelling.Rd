@@ -13,6 +13,9 @@ check_spelling(df1, df2, condition)
 
 \item{condition}{Column to be joined.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if two datasets have the same spelling in names column.
 }

@@ -4,12 +4,17 @@
 \alias{calculateResults}
 \title{Calculates results for a Monte Carlo Simulation}
 \usage{
-calculateResults(path_file, confidence_interval)
+calculateResults(path_file, report_path, confidence_interval)
 }
 \arguments{
 \item{path_file}{A string containing the path to the folder containing the .csv files created in the monteCarlo function.}
 
+\item{report_path}{A string containing the path to where the report will be saved.}
+
 \item{confidence_interval}{A float. Must be either 0.01, 0.05 or 0.1.}
+}
+\value{
+No R object return, prints an Excel workbook.
 }
 \description{
 Calculates a confidence interval for several parameters obtained through a Monte Carlo Simulation. This function should be employed only if the standard table supplied with this package is utilized. Prints a .xlsx file in the home directory.

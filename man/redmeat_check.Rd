@@ -11,6 +11,9 @@ redmeat_check(id, redmeat_ids)
 
 \item{redmeat_ids}{Vector of unique food IDs that are redmeat.}
 }
+\value{
+No R object return, performs only a check.
+}
 \description{
 Sets a boolean redmeat flag column in dataset.
 }

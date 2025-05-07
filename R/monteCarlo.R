@@ -1,6 +1,7 @@
 #' Monte Carlo simulation
 #' 
 #' Creates a Monte Carlo simulation to a given number of iterations. A hit meal consists of one that returnz zero difference between nutrient targets and random meal plan, food groups serves and respects lower linked foods serves lower or equal to higher linked foods serves, if existent.
+#' @param dir_path A string containing the path where a directory will be created.
 #' @param iterations Number of iterations. Integer.
 #' @param foods_df Foods dataframe.
 #' @param nutrient_targets_df Nutrient constraints dataframe.
@@ -21,8 +22,9 @@
 #' @param linked_high_2 Optional parameter. Vector of higher bound food IDs.
 #' @return List of dataframes, containing results of simulation.
 #' @examples
-#' \dontrun{
-#' results <- monteCarlo(iterations = 5,
+#' \donttest{
+#' results <- monteCarlo(dir_path = home/Downloads,
+#'                       iterations = 5,
 #'                       foods_df = DIETCOST::foods,
 #'                       nutrient_targets_df = DIETCOST::nutrient_targets,
 #'                       food_group_targets_df = DIETCOST::food_groups,
@@ -36,17 +38,16 @@
 #'
 #'} 
 #' @export
-monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL, nutrient_constraints = NULL, linked_low_1 = NULL, linked_high_1 = NULL, linked_low_2 = NULL, linked_high_2 = NULL){
+monteCarlo <- function(dir_path, iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL, nutrient_constraints = NULL, linked_low_1 = NULL, linked_high_1 = NULL, linked_low_2 = NULL, linked_high_2 = NULL){
   if(round(iterations) != iterations || iterations <= 0){
     stop('Iterations must be a positive integer!')
   }
-  abs_path <- paste0(getwd(), '/')
   new_dir <- paste0('results_', format(Sys.time(), '%Y%m%d%H%M%S'))
-  dir.create(paste0(abs_path, new_dir))
+  dir.create(file.path(dir_path, new_dir))
   hash_list <- list()
   
   meal_plan <- createRandomMeal(foods_df = foods_df, targets_df = nutrient_targets_df, person = person, diet = diet, allowed_varieties = allowed_varieties, min_serve_size_difference = min_serve_size_difference, allow_takeaway = allow_takeaway, allow_alcohol = allow_alcohol, allow_discretionary = allow_discretionary, emission_cols = emission_cols, nutrient_cols = nutrient_cols)
-  print(paste('All meals formed will be saved as .csv files in directory', paste0(abs_path, new_dir)))
+  message(paste('All meals formed will be saved as .csv files in directory', file.path(dir_path, new_dir)))
   for(i in 1:iterations){
     nutrients_plan <- getPerc(getNutrients(df = meal_plan, nutrient_cols = nutrient_cols),meal_plan)
     serves_plan <- getFoodGroupServes(df = meal_plan)
@@ -96,19 +97,20 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
       }
       
     }
-    print(paste('Iteration:',i))
+    message(paste('Iteration:',i))
     
     if(isTRUE(checkZeroDiff(nutrients_diff))){
       if(isTRUE(checkZeroDiff(serves_diff))){
         if((is.null(linked_low_1) && is.null(linked_high_1) && is.null(linked_low_2) && is.null(linked_high_2))||(!is.null(linked_low_1) && !is.null(linked_high_1) && is.null(linked_low_2) && is.null(linked_high_2) && linked_sum_1 >=0)||(!is.null(linked_low_1) && !is.null(linked_high_1) && !is.null(linked_low_2) && !is.null(linked_high_2) && linked_sum_1 >=0 && linked_sum_2 >=0)){
-          print('Hit!')
+          message('Hit!')
           hash_diet <- hash(meal_plan)
           if(!(hash_diet %in% hash_list)){
             hash_list[[length(hash_list)+1]] <- hash_diet
-            print('Unique diet formed!')
-            write.csv(meal_plan, paste0(abs_path, new_dir, '/','meal_plan_',i,'.csv'), row.names=FALSE)
+            message('Unique diet formed!')
+            file_name <- paste0('meal_plan_',i,'.csv')
+            write.csv(meal_plan, file.path(dir_path, new_dir, file_name), row.names=FALSE)
           } else{
-            print('Diet already logged in!')
+            message('Diet already logged in!')
           }
           food = sample_safe(meal_plan$food_id)
           serve_range <- sort(seq(meal_plan$min[meal_plan$food_id == food], meal_plan$max[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
@@ -140,7 +142,7 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
                 fl <- 'pair_2'
               }
               serve_range <- sort(seq(meal_plan$min[meal_plan$food_id == food], meal_plan$intake[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
-              print(paste0(c(paste0('Food link ', fl, ' is off. ', meal_plan$food_name[meal_plan$food_id == food], ' affects it at lower half. Current intake is ',meal_plan$intake[meal_plan$food_id == food], ' and it must be between ', meal_plan$min[meal_plan$food_id == food], ' and ', meal_plan$max[meal_plan$food_id == food],'. Options: '),serve_range), collapse = " "))
+              message(paste0(c(paste0('Food link ', fl, ' is off. ', meal_plan$food_name[meal_plan$food_id == food], ' affects it at lower half. Current intake is ',meal_plan$intake[meal_plan$food_id == food], ' and it must be between ', meal_plan$min[meal_plan$food_id == food], ' and ', meal_plan$max[meal_plan$food_id == food],'. Options: '),serve_range), collapse = " "))
               iterations_lk$low[iterations_lk$link == fl] <- iterations_lk$low[iterations_lk$link == fl] + 1
             } else{
               tmp <- meal_plan$food_id[meal_plan$food_id %in% off_linked_foods_high]
@@ -151,7 +153,7 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
                 fl <- 'pair_2'
               }
               serve_range <- sort(seq(meal_plan$intake[meal_plan$food_id == food], meal_plan$max[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
-              print(paste0(c(paste0('Food link ', fl, ' is off. ', meal_plan$food_name[meal_plan$food_id == food], ' affects it at upper half. Current intake is ',meal_plan$intake[meal_plan$food_id == food], ' and it must be between ', meal_plan$min[meal_plan$food_id == food], ' and ', meal_plan$max[meal_plan$food_id == food],'. Options: '),serve_range), collapse = " "))
+              message(paste0(c(paste0('Food link ', fl, ' is off. ', meal_plan$food_name[meal_plan$food_id == food], ' affects it at upper half. Current intake is ',meal_plan$intake[meal_plan$food_id == food], ' and it must be between ', meal_plan$min[meal_plan$food_id == food], ' and ', meal_plan$max[meal_plan$food_id == food],'. Options: '),serve_range), collapse = " "))
               iterations_lk$high[iterations_lk$link == fl] <- iterations_lk$high[iterations_lk$link == fl] + 1
             }
           }
@@ -163,21 +165,21 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
         
         foods_impacted <- meal_plan$food_id[meal_plan$food_group_id == target_fg]
         if(length(foods_impacted) == 0){
-          print(paste('No food impact group:',target_fg))
+          message(paste('No food impact group:',target_fg))
           next
         }
         food <- sample_safe(foods_impacted)
         fg <- meal_plan$food_group[meal_plan$food_id == food]
         if(off_food_groups$value[off_food_groups$food_group_id == target_fg] > 0){
-          print(paste0('Food group ', fg, ' has too many serves. Current: ', serves_plan$value[serves_plan$food_group_id == target_fg],'. Max: ', food_groups_wk$max[food_groups_wk$food_group_id == target_fg]))
+          message(paste0('Food group ', fg, ' has too many serves. Current: ', serves_plan$value[serves_plan$food_group_id == target_fg],'. Max: ', food_groups_wk$max[food_groups_wk$food_group_id == target_fg]))
           serve_range <- sort(seq(meal_plan$min[meal_plan$food_id == food], meal_plan$intake[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
           iterations_fg$high[iterations_fg$food_group_id == target_fg] <- iterations_fg$high[iterations_fg$food_group_id == target_fg] + 1
         } else{
-          print(paste0('Food group ', fg, ' has too few serves. Current: ', serves_plan$value[serves_plan$food_group_id == target_fg],'. Min: ', food_groups_wk$min[food_groups_wk$food_group_id == target_fg]))
+          message(paste0('Food group ', fg, ' has too few serves. Current: ', serves_plan$value[serves_plan$food_group_id == target_fg],'. Min: ', food_groups_wk$min[food_groups_wk$food_group_id == target_fg]))
           serve_range <- sort(seq(meal_plan$intake[meal_plan$food_id == food], meal_plan$max[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
           iterations_fg$low[iterations_fg$food_group_id == target_fg] <- iterations_fg$low[iterations_fg$food_group_id == target_fg] + 1
         }
-        print(paste0(c(paste0(meal_plan$food_name[meal_plan$food_id == food]," has current intake of ",meal_plan$intake[meal_plan$food_id == food]," and it must be between ",meal_plan$min[meal_plan$food_id == food]," and ",meal_plan$max[meal_plan$food_id == food],". Options: "),serve_range), collapse = " "))
+        message(paste0(c(paste0(meal_plan$food_name[meal_plan$food_id == food]," has current intake of ",meal_plan$intake[meal_plan$food_id == food]," and it must be between ",meal_plan$min[meal_plan$food_id == food]," and ",meal_plan$max[meal_plan$food_id == food],". Options: "),serve_range), collapse = " "))
       }
     } else{
       off_measures <- nutrients_diff[nutrients_diff$value != 0,]
@@ -204,35 +206,35 @@ monteCarlo <- function(iterations, foods_df, nutrient_targets_df, food_group_tar
         foods_impacted <- meal_plan$food_id[meal_plan[col] > 0]
       }
       if(length(foods_impacted) == 0){
-        print(paste('No food impact measure:',target_measure))
+        message(paste('No food impact measure:',target_measure))
         next
       }
       food <- sample_safe(foods_impacted)
       if(off_measures$value[off_measures$nutrient == target_measure] > 0){
-        print(paste0('We are too high on ',target_measure,'. Current: ',nutrients_plan$value[nutrients_plan$nutrient == target_measure],'. Max: ',nutrient_targets_wk$max[nutrient_targets_wk$nutrient == target_measure]))
+        message(paste0('We are too high on ',target_measure,'. Current: ',nutrients_plan$value[nutrients_plan$nutrient == target_measure],'. Max: ',nutrient_targets_wk$max[nutrient_targets_wk$nutrient == target_measure]))
         serve_range <- sort(seq(meal_plan$min[meal_plan$food_id == food], meal_plan$intake[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
         if(length(serve_range) > 10){
           serve_range <- tail(serve_range, 10)
         }
         iterations_constraints$high[iterations_constraints$nutrient == target_measure] <- iterations_constraints$high[iterations_constraints$nutrient == target_measure] + 1
       } else{
-        print(paste0('We are too low on ',target_measure,'. Current: ',nutrients_plan$value[nutrients_plan$nutrient == target_measure],'. Min: ',nutrient_targets_wk$min[nutrient_targets_wk$nutrient == target_measure]))
+        message(paste0('We are too low on ',target_measure,'. Current: ',nutrients_plan$value[nutrients_plan$nutrient == target_measure],'. Min: ',nutrient_targets_wk$min[nutrient_targets_wk$nutrient == target_measure]))
         serve_range <- sort(seq(meal_plan$intake[meal_plan$food_id == food], meal_plan$max[meal_plan$food_id == food], meal_plan$serve_size[meal_plan$food_id == food]*min_serve_size_difference))
         if(length(serve_range) > 10){
           serve_range <- head(serve_range, 10)
         }
         iterations_constraints$low[iterations_constraints$nutrient == target_measure] <- iterations_constraints$high[iterations_constraints$nutrient == target_measure] + 1
       }
-      print(paste0(paste0(c(paste0(meal_plan$food_name[meal_plan$food_id == food]," impacts ", target_measure, " and intake must be between ", meal_plan$min[meal_plan$food_id == food]," and ",meal_plan$max[meal_plan$food_id == food],". Options:"),serve_range), collapse = " "),". Current: ",meal_plan$intake[meal_plan$food_id == food]))
+      message(paste0(paste0(c(paste0(meal_plan$food_name[meal_plan$food_id == food]," impacts ", target_measure, " and intake must be between ", meal_plan$min[meal_plan$food_id == food]," and ",meal_plan$max[meal_plan$food_id == food],". Options:"),serve_range), collapse = " "),". Current: ",meal_plan$intake[meal_plan$food_id == food]))
     }
     
     if(!is.null(serve_range)){
       new_intake <- sample_safe(serve_range)
-      print(paste0('Changing ', meal_plan$food_name[meal_plan$food_id == food],' intake from ',meal_plan$intake[meal_plan$food_id == food],' to ',new_intake))
+      message(paste0('Changing ', meal_plan$food_name[meal_plan$food_id == food],' intake from ',meal_plan$intake[meal_plan$food_id == food],' to ',new_intake))
       meal_plan$intake[meal_plan$food_id == food] <- new_intake
     }
   }
-  results <- list(path_file = paste0(abs_path, new_dir),
+  results <- list(path_file = file.path(dir_path, new_dir),
                   meals_created = length(hash_list),
                   last_meal = meal_plan,
                   iterations_constraints = iterations_constraints,

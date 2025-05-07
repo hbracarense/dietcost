@@ -2,6 +2,7 @@
 #'
 #' Checks if all individuals have a matching diet.
 #' @param df Dataframe.
+#' @return No return, only performs a check.
 #' @export
 check_match_individual_diet <- function(df){
   if(any(is.na(df$individual))){

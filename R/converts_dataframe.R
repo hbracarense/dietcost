@@ -18,7 +18,7 @@ converts_dataframe <- function(df, exclusion_cols){
       )
     },
     error = function(e){
-      print('Check your data! There are non-nummeric values in measures.')
+      message('Check your data! There are non-nummeric values in measures.')
       stop(e)
     }
   )

@@ -14,6 +14,6 @@ addPriceData <- function(filepath, df){
   check_nom_num_df(df1[,!(names(df1) %in% c('food_id', 'food_name'))])
   check_spelling(df[,c('food_id', 'food_name')], df1[,c('food_id', 'food_name')],'food_id')
   df <- join_function(df,df1[,c('food_id', 'price')],'food_id')
-  print('Price data added with success.')
+  message('Price data added with success.')
   return(df)
 }

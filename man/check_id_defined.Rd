@@ -13,6 +13,9 @@ check_id_defined(df1, df2, value)
 
 \item{value}{Dataset name.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if a given food has an ID assigned but is absent in another dataset.
 }

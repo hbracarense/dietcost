@@ -4,6 +4,7 @@
 #' @param df Dataframe.
 #' @param min Minimum energy column name. Default 'energy_mj_min'.
 #' @param max Maximum energy column name. Default 'energy_mj_max'.
+#' @return No return, only performs a check.
 #' @export
 energy_conversor <- function(df, min, max){
   df <- df %>% mutate(

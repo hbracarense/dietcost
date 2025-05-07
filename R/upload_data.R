@@ -9,7 +9,7 @@ upload_data <- function(filepath, sheet){
   df<- tryCatch(
     expr = {read_excel(filepath, sheet)},
     error = function(e){
-      print('Upload failed!')
+      message('Upload failed!')
       stop(e)}
   )
   return(df)

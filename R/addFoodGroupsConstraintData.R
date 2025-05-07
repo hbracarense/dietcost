@@ -25,6 +25,6 @@ addFoodGroupsConstraintData <- function(filepath, df, diets){
     )
   }
   df[,!(names(df) %in% c('food_group', 'food_group_id'))] <- df[,!(names(df) %in% c('food_group', 'food_group_id'))] %>% replace(is.na(.), 0)
-  print('Food group constraint data added with success.')
+  message('Food group constraint data added with success.')
   return(df)
 }

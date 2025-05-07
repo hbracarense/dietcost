@@ -11,6 +11,9 @@ check_function(name, column)
 
 \item{column}{Column name, in string format.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if there are any missing values in a given column from the dataset.
 }

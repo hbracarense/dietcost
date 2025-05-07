@@ -28,6 +28,6 @@ createNutrientTargets <- function(filepath, allow_alcohol = TRUE, allow_discreti
   check_match_individual_diet(df)
   check_nom_num_df(df[,!(names(df) %in% c('individual', 'diet'))])
   df[,!(names(df) %in% c('individual', 'diet'))] <- df[,!(names(df) %in% c('individual', 'diet'))] %>% replace(is.na(.), 0)
-  print('Nutrient targets data added with success.')
+  message('Nutrient targets data added with success.')
   return(df)
 }

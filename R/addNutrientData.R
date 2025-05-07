@@ -14,6 +14,6 @@ addNutrientData <- function(filepath, df){
   check_spelling(df[,c('food_id', 'food_name')], df1[,c('food_id', 'food_name')],'food_id')
   df1 <- df1[,!(names(df1) %in% 'food_name')]
   df <- join_function(df, df1, 'food_id')
-  print('Nutrients data added with success.')
+  message('Nutrients data added with success.')
   return(df)
 }

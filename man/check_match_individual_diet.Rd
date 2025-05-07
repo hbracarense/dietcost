@@ -9,6 +9,9 @@ check_match_individual_diet(df)
 \arguments{
 \item{df}{Dataframe.}
 }
+\value{
+No return, only performs a check.
+}
 \description{
 Checks if all individuals have a matching diet.
 }

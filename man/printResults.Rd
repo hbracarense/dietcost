@@ -4,9 +4,11 @@
 \alias{printResults}
 \title{Exportation of Monte Carlo results}
 \usage{
-printResults(results, person, diet, allowed_varieties, iterations)
+printResults(file_path, results, person, diet, allowed_varieties, iterations)
 }
 \arguments{
+\item{file_path}{A string containing the path where the file will be saved.}
+
 \item{results}{List of results}
 
 \item{person}{Individual whose random meal plan will be created to. Can be one of man, woman, boy or girl.}
@@ -16,6 +18,9 @@ printResults(results, person, diet, allowed_varieties, iterations)
 \item{allowed_varieties}{Permitted food varieties. Can be a vector of the following: 1,2 and/or 3.}
 
 \item{iterations}{Number of iterations. Integer.}
+}
+\value{
+No R object return, prints a Excel workbook.
 }
 \description{
 Exports, in .xlsx format, the results of Monte Carlo simulation.
