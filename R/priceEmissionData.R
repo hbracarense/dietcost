@@ -6,7 +6,6 @@
 #' @param emission_cols Optional parameter. Emission column names if standard dataset isn't used.
 #' @return Random meal plan with price and emissions calculated.
 #' @export
-#Apply price and emission data to food intake
 priceEmissionData <- function(df, emission_cols = NULL){
   standard_name_check(df, 'price', 'intake')
   if(is.null(emission_cols)){

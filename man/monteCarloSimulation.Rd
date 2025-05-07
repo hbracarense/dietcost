@@ -5,6 +5,7 @@
 \title{Single-function Monte Carlo simulation and results export.}
 \usage{
 monteCarloSimulation(
+  dir_path,
   iterations,
   foods_df,
   nutrient_targets_df,
@@ -26,6 +27,8 @@ monteCarloSimulation(
 )
 }
 \arguments{
+\item{dir_path}{A string containing the path where a directory will be created. This same path will hold the reports Excel workbook.}
+
 \item{iterations}{Number of iterations. Integer.}
 
 \item{foods_df}{Foods dataframe.}
@@ -61,8 +64,6 @@ monteCarloSimulation(
 \item{linked_low_2}{Optional parameter. Vector of lower bound food IDs.}
 
 \item{linked_high_2}{Optional parameter. Vector of higher bound food IDs.}
-
-\item{dir_path}{A string containing the path where a directory will be created. This same path will hold the reports Excel workbook.}
 }
 \value{
 No R object return. Prints an Excel workbook.

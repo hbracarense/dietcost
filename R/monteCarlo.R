@@ -107,6 +107,7 @@ monteCarlo <- function(dir_path, iterations, foods_df, nutrient_targets_df, food
           if(!(hash_diet %in% hash_list)){
             hash_list[[length(hash_list)+1]] <- hash_diet
             message('Unique diet formed!')
+            meal_plan <- priceEmissionData(nutrientDataCalculation(meal_plan, nutrient_cols = nutrient_cols), emission_cols = emission_cols)
             file_name <- paste0('meal_plan_',i,'.csv')
             write.csv(meal_plan, file.path(dir_path, new_dir, file_name), row.names=FALSE)
           } else{
@@ -236,7 +237,7 @@ monteCarlo <- function(dir_path, iterations, foods_df, nutrient_targets_df, food
   }
   results <- list(path_file = file.path(dir_path, new_dir),
                   meals_created = length(hash_list),
-                  last_meal = meal_plan,
+                  last_meal = priceEmissionData(nutrientDataCalculation(meal_plan, nutrient_cols = nutrient_cols), emission_cols = emission_cols),
                   iterations_constraints = iterations_constraints,
                   iterations_fg = iterations_fg,
                   iterations_lk = iterations_lk,

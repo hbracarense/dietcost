@@ -24,10 +24,6 @@ calculateGroupedResults <- function(path_file, report_path, confidence_interval)
       meal_df <- read.csv(file.path(path_file, file))
       col <- as.character(strsplit(file,'.csv')[1])
       df[,col] <- double(4)
-      meal_df$price <- (meal_df$price/100)*meal_df$intake
-      meal_df$CF_gCO2eq <- (meal_df$CF_gCO2eq/1000)*meal_df$intake
-      meal_df$WF_l <- (meal_df$WF_l/1000)*meal_df$intake
-      meal_df$EF_g_m2 <- (meal_df$EF_g_m2/1000)*meal_df$intake
       for(i in nrow(df)){
         switch(df$item[i],
                'price' = {df[i, col] <- meal_df %>% group_by(.data$food_group) %>% summarise(!!col := sum(.data$price, na.rm = TRUE)) %>% select(!!col)},
