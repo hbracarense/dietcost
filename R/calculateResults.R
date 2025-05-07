@@ -93,7 +93,7 @@ calculateResults <- function(path_file, report_path, confidence_interval){
     }
     
     df_results[nrow(df_results)+1,] <-c('n',n,NA)
-    file_path <- paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')
+    file_name <- paste0('calculated_results_', format(Sys.time(), '%Y%m%d%H%M%S'), '.xlsx')
     write.xlsx(df_results, file.path(report_path, file_name), sheetName = 'Results', row.names = FALSE)
   }
 }
