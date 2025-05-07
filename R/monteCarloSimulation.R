@@ -39,7 +39,7 @@
 #' 
 #' @export
 
-monteCarloSimulation <- function(iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL, nutrient_constraints = NULL, linked_low_1 = NULL, linked_high_1 = NULL, linked_low_2 = NULL, linked_high_2 = NULL){
+monteCarloSimulation <- function(dir_path, iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL, nutrient_constraints = NULL, linked_low_1 = NULL, linked_high_1 = NULL, linked_low_2 = NULL, linked_high_2 = NULL){
   if((!is.null(linked_low_1) && is.null(linked_high_1))||(!is.null(linked_high_1) && is.null(linked_low_1))){
     stop('Please inform the matching pair of linked foods!')
   }
