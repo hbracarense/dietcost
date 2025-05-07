@@ -21,22 +21,6 @@
 #' @param linked_low_2 Optional parameter. Vector of lower bound food IDs.
 #' @param linked_high_2 Optional parameter. Vector of higher bound food IDs.
 #' @return List of dataframes, containing results of simulation.
-#' @examples
-#' \donttest{
-#' results <- monteCarlo(dir_path = "home/Downloads",
-#'                       iterations = 5,
-#'                       foods_df = DIETCOST::foods,
-#'                       nutrient_targets_df = DIETCOST::nutrient_targets,
-#'                       food_group_targets_df = DIETCOST::food_groups,
-#'                       person = 'woman',
-#'                       diet = 'C',
-#'                       allowed_varieties= c(1,2,3),
-#'                       min_serve_size_difference=0.5,
-#'                       allow_discretionary = TRUE,
-#'                       allow_alcohol = TRUE,
-#'                       allow_takeaway = TRUE)
-#'
-#'} 
 #' @export
 monteCarlo <- function(dir_path, iterations, foods_df, nutrient_targets_df, food_group_targets_df, person, diet, allowed_varieties, min_serve_size_difference, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE, emission_cols = NULL, nutrient_cols = NULL, nutrient_constraints = NULL, linked_low_1 = NULL, linked_high_1 = NULL, linked_low_2 = NULL, linked_high_2 = NULL){
   if(round(iterations) != iterations || iterations <= 0){

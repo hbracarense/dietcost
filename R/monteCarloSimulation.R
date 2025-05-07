@@ -21,21 +21,6 @@
 #' @param linked_low_2 Optional parameter. Vector of lower bound food IDs.
 #' @param linked_high_2 Optional parameter. Vector of higher bound food IDs.
 #' @return No R object return. Prints an Excel workbook.
-#' @examples
-#' \donttest{
-#' monteCarloSimulation(dir_path = "home/Downloads",
-#'                      iterations = 5,
-#'                      foods_df = DIETCOST::foods,
-#'                      nutrient_targets_df = DIETCOST::nutrient_targets,
-#'                      food_group_targets_df = DIETCOST::food_groups,
-#'                      person = 'woman',
-#'                      diet = 'PF',
-#'                      allowed_varieties = c(1,2,3),
-#'                      min_serve_size_difference = 0.5,
-#'                      allow_discretionary = TRUE,
-#'                      allow_alcohol = TRUE,
-#'                      allow_takeaway = TRUE)
-#'}
 #' 
 #' @export
 
