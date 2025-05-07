@@ -23,7 +23,7 @@
 #' @return No R object return. Prints an Excel workbook.
 #' @examples
 #' \donttest{
-#' monteCarloSimulation(dir_path = home/Downloads,
+#' monteCarloSimulation(dir_path = "home/Downloads",
 #'                      iterations = 5,
 #'                      foods_df = DIETCOST::foods,
 #'                      nutrient_targets_df = DIETCOST::nutrient_targets,

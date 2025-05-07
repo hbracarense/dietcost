@@ -23,7 +23,7 @@
 #' @return List of dataframes, containing results of simulation.
 #' @examples
 #' \donttest{
-#' results <- monteCarlo(dir_path = home/Downloads,
+#' results <- monteCarlo(dir_path = "home/Downloads",
 #'                       iterations = 5,
 #'                       foods_df = DIETCOST::foods,
 #'                       nutrient_targets_df = DIETCOST::nutrient_targets,
