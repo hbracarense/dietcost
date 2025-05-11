@@ -13,8 +13,14 @@ results.
 
 ## Installation
 
-You can install the development version of DIETCOST from
-[GitHub](https://github.com/) with:
+You can install the stable version of DIETCOST from CRAN with:
+
+``` r
+install.packages("DIETCOST")
+```
+
+Also, the development version of DIETCOST is available in
+[GitHub](https://github.com/):
 
 ``` r
 # install.packages("devtools")
@@ -28,28 +34,7 @@ bellow:
 
 ``` r
 library(DIETCOST)
-monteCarloSimulation(5, DIETCOST::foods, DIETCOST::nutrient_targets, DIETCOST::food_groups, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
-#> [1] "All meals formed will be saved as .csv files in directory C:/Users/hbrac/OneDrive/Documentos/Nutrição/Produtos/Pacote/dietcost/results_20250501154825"
-#> [1] "Iteration: 1"
-#> [1] "We are too high on fat. Current: 9052.80054495475. Max: 513.1"
-#> [1] "FARINHA LACTEA impacts fat and intake must be between 0 and 0. Options: 0. Current: 0"
-#> [1] "Changing FARINHA LACTEA intake from 0 to 0"
-#> [1] "Iteration: 2"
-#> [1] "We are too high on sugars_perc. Current: 0.110025397298352. Max: 0"
-#> [1] "ACUCAR DIETCOST impacts sugars_perc and intake must be between 0 and 0. Options: 0. Current: 0"
-#> [1] "Changing ACUCAR DIETCOST intake from 0 to 0"
-#> [1] "Iteration: 3"
-#> [1] "We are too high on CHO. Current: 21691.0158021275. Max: 2887.5"
-#> [1] "SALAME impacts CHO and intake must be between 0 and 0. Options: 0. Current: 0"
-#> [1] "Changing SALAME intake from 0 to 0"
-#> [1] "Iteration: 4"
-#> [1] "We are too high on fibre. Current: 2824.541160645. Max: 700"
-#> [1] "DOCE DE FRUTAS DIETCOST impacts fibre and intake must be between 0 and 0. Options: 0. Current: 0"
-#> [1] "Changing DOCE DE FRUTAS DIETCOST intake from 0 to 0"
-#> [1] "Iteration: 5"
-#> [1] "We are too high on redmeat. Current: 1950. Max: 196"
-#> [1] "LINGUICA NO VAREJO DIETCOST impacts redmeat and intake must be between 0 and 0. Options: 0. Current: 0"
-#> [1] "Changing LINGUICA NO VAREJO DIETCOST intake from 0 to 0"
+monteCarloSimulation(tempdir(), 5, DIETCOST::foods, DIETCOST::nutrient_targets, DIETCOST::food_groups, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
 ```
 
 This function saves in the top directory a report containing the stats
@@ -76,4 +61,4 @@ nutrient_targets <- DIETCOST::nutrient_targets
 ```
 
 Please report any bugs or submit any queries either to this GitHub repo
-or to <hbracarense@hotmail.com>.
+or to <h@bracarense.com>.

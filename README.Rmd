@@ -20,9 +20,15 @@ This package is the R version of the DIETCOST SOFTWARE, providing tools to easil
 
 ## Installation
 
-You can install the development version of DIETCOST from [GitHub](https://github.com/) with:
+You can install the stable version of DIETCOST from CRAN with:
 
-``` r
+```{r install from CRAN, eval=FALSE}
+install.packages("DIETCOST")
+```
+
+Also, the development version of DIETCOST is available in [GitHub](https://github.com/):
+
+``` {r install from GitHub, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("hbracarense/dietcost")
 ```
@@ -31,9 +37,9 @@ devtools::install_github("hbracarense/dietcost")
 
 The main function of this package is monteCarloSimulation(), displayed bellow:
 
-```{r DIETCOST::monteCarloSimulation}
+```{r DIETCOST::monteCarloSimulation, eval=FALSE}
 library(DIETCOST)
-monteCarloSimulation(5, DIETCOST::foods, DIETCOST::nutrient_targets, DIETCOST::food_groups, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
+monteCarloSimulation(tempdir(), 5, DIETCOST::foods, DIETCOST::nutrient_targets, DIETCOST::food_groups, person = 'woman', 'PF', c(1,2,3), 0.5, allow_discretionary = TRUE, allow_alcohol = TRUE, allow_takeaway = TRUE)
 ```
 
 This function saves in the top directory a report containing the stats of the run. It also creates a folder, which will store the resulting diets, if any is formed, as a .csv.
@@ -44,10 +50,10 @@ This table is made availabe throught the GitHub repo and also as .xlsx on the ex
 
 Finally, this package also contains the already preprocessed datased, which can be accessed and stored into R dataframes as bellow:
 
-```{r datasets}
+```{r datasets, eval=FALSE}
 foods_df <- DIETCOST::foods
 food_groups_df <- DIETCOST::food_groups
 nutrient_targets <- DIETCOST::nutrient_targets
 ```
 
-Please report any bugs or submit any queries either to this GitHub repo or to hbracarense@hotmail.com.
+Please report any bugs or submit any queries either to this GitHub repo or to h@bracarense.com.
